@@ -1,9 +1,16 @@
-import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
+// Vue imports
+import { createApp } from 'vue';
+
+// Local imports
+import App from './App.vue';
+import router from './router';
+import store from './store';
+
+// UI Imports
+import BaseButton from './components/ui/BaseButton.vue';
 
 createApp(App)
   .use(store)
   .use(router)
-  .mount("#app");
+  .component('base-button', BaseButton)
+  .mount('#app');
