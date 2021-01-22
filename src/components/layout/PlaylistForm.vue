@@ -3,15 +3,29 @@
   <base-card>
     <form>
       <h1>Generate a Playlist</h1>
-      <div class="form-control">
-        <label for="multi">Multireddit</label>
-        <input type="text" id="multi" />
-        <!-- <p>Multireddit must not be empty</p> -->
+      <div class="form-row">
+        <div class="form-control">
+          <label for="user">Username</label>
+          <input type="text" id="user" />
+          <!-- <p>Username must not be empty</p> -->
+        </div>
+        <div class="form-control">
+          <label for="multi">Multireddit</label>
+          <input type="text" id="multi" />
+          <!-- <p>Multireddit must not be empty</p> -->
+        </div>
       </div>
-      <div class="form-control">
-        <label for="num-songs">Number of songs</label>
-        <input type="number" id="num-songs" />
-        <!-- <p>Number of songs must be greater than 0</p> -->
+      <div class="form-row">
+        <div class="form-control">
+          <label for="num-songs">Number of songs</label>
+          <input type="number" id="num-songs" />
+          <!-- <p>Number of songs must be greater than 0</p> -->
+        </div>
+        <div class="form-control">
+          <label for="upvotes">Minimum Upvotes</label>
+          <input type="number" id="numsongs" />
+          <!-- <p>Minimum number of upvotes must be greater than 0</p> -->
+        </div>
       </div>
       <div class="form-control">
         <h3>Sort By</h3>
@@ -27,6 +41,10 @@
           <label for="new">New</label>
           <input name="sort" type="radio" id="new" value="new" />
         </div>
+        <div>
+          <label for="rising">Rising</label>
+          <input name="sort" type="radio" id="rising" value="rising" />
+        </div>
         <!-- <p>At least one sort method must be selected</p> -->
       </div>
       <!-- <p>Please fix the above errors and submit again.</p> -->
@@ -37,9 +55,10 @@
 
 <style scoped>
 form {
-  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
 .form-control {
   margin: 0.5rem 0;
 }
@@ -48,30 +67,22 @@ form {
   margin: 0 1rem;
 }
 
+.form-row {
+  display: flex;
+}
+.form-row input {
+  width: 10rem;
+  margin: 0 0.5rem;
+}
+
 label {
   font-weight: bold;
   display: block;
   margin-bottom: 0.5rem;
 }
 
-input[type='radio'] + label {
-  font-weight: normal;
-  display: block;
-  margin: 0 0 0 0.5rem;
-}
-
-input,
-textarea {
-  display: block;
-  width: 100%;
-  border: 1px solid #ccc;
+input {
   font: inherit;
-}
-
-input:focus {
-  /* background-color: #f0e6fd; */
-  outline: none;
-  border: 1px solid #1ed760;
 }
 
 input[type='radio'] {
@@ -81,7 +92,7 @@ input[type='radio'] {
 }
 
 input[type='radio']:focus {
-  outline: #3d008d solid 1px;
+  outline: #1ed760 solid 1px;
 }
 
 h3 {
