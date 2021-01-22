@@ -10,7 +10,6 @@
 p {
   height: 2rem;
   padding-top: 0.5rem;
-  bottom: 0;
   background-color: #1ed760;
   text-align: center;
   font-weight: bold;

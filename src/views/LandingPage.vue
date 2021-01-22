@@ -1,13 +1,20 @@
 <template>
   <div id="showcase">
     <div class="showcase-content">
-      <h1></h1>
-      <base-card>
-        <base-button mode="flat-dark">Create Playlist</base-button>
-      </base-card>
+      <playlist-form />
     </div>
   </div>
 </template>
+
+<script>
+import PlaylistForm from '../components/layout/PlaylistForm.vue';
+
+export default {
+  components: {
+    PlaylistForm,
+  },
+};
+</script>
 
 <style scoped>
 #showcase {
@@ -18,19 +25,8 @@
 }
 
 #showcase .showcase-content {
+  padding-top: 4rem;
   display: flex;
-  flex-direction: column;
   text-align: center;
-  justify-content: flex-start;
-  align-items: center;
-  height: 100%;
-  padding: 0 2rem;
-
-  /* Overlay */
-  /* position: absolute;
-  top: 65px;
-  left: 0;
-  right: 0;
-  background-color: rgba(39, 39, 39, 0.3); */
 }
 </style>
