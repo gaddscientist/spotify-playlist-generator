@@ -1,15 +1,13 @@
 <template>
-  <!-- Navbar -->
   <nav id="navbar">
-    <div style="display: flex; align-items: center;">
+    <div class="title">
       <img id="logo" alt="Spotify logo" src="@/assets/spotify_logo_green.png" />
       <h2>Playlist Generator</h2>
     </div>
     <ul>
-      <!-- #home links to home id tag on body -->
-      <li><a href="#home">Home</a></li>
-      <li><a href="#what">What</a></li>
-      <li><a href="#who">Who</a></li>
+      <li><router-link to="/">Home</router-link></li>
+      <li><a href="#popular">Popular</a></li>
+      <li><a href="#help">Help</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
   </nav>
@@ -18,21 +16,19 @@
 <style scoped>
 #logo {
   height: 35px;
-  /* width: 28px; */
   margin-right: 0.25rem;
 }
-/* Navbar */
+
 #navbar {
   display: flex;
-  position: sticky;
+  /* position: sticky; */
+  /* z-index: 1; */
   top: 0;
-  /* background: #333; */
-  /* background: #191414; */
   background: #222327;
   color: #fff;
   justify-content: space-around;
-  z-index: 1;
   padding: 1rem;
+  height: 7vh;
 }
 
 #navbar ul {
@@ -43,16 +39,19 @@
 
 #navbar ul li a {
   font-weight: bold;
-  color: #32cd32;
-  /* color: #1db954; */
+  color: #1ed760;
   padding: 0.5rem;
   margin: 0 0.25rem;
 }
 
 #navbar ul li a:hover {
-  background: #32cd32;
-  /* background: #1db954; */
+  background: #1ed760;
   color: white;
   border-radius: 5px;
+}
+
+.title {
+  display: flex;
+  align-items: center;
 }
 </style>

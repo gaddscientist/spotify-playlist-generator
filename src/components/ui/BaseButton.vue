@@ -60,13 +60,13 @@ button:active {
 .flat-dark {
   background-color: #222327;
   border: none;
-  color: #32cd32;
+  color: #1ed760;
   font-weight: bold;
 }
 .flat-light {
   background-color: #fff;
   border: none;
-  color: #32cd32;
+  color: #1ed760;
   font-weight: bold;
 }
 
