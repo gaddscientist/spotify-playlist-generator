@@ -37,14 +37,32 @@ async function getSpotifySubmissionsFromSub(subreddit, pages) {
           submissions[submission.title] = submission.url;
         }
       });
+    })
+    .catch(err => {
+      console.log(err);
     });
 
   return submissions;
 }
 
-// Testing
-let temp;
-getSpotifySubmissionsFromSub('hiphopheads', 2).then(subs => (temp = subs));
+async function getSpotifySubmissionsFromMulti(user, multi) {
+  let submissions = [];
+  const subs = await getSubsFromMulti(user, multi);
+
+  await Promise.allSettled(
+    subs.map(async sub => {
+      const subms = await getSpotifySubmissionsFromSub(sub, 4);
+      submissions.push(subms);
+    })
+  );
+
+  return submissions;
+}
+
+let results;
+getSpotifySubmissionsFromMulti('N0_FREE_REFILLS', 'hiphop').then(
+  subms => (results = subms)
+);
 setTimeout(() => {
-  console.log(temp);
-}, 1000);
+  console.log(results);
+}, 3000);
