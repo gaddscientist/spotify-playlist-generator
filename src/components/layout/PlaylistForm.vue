@@ -1,29 +1,29 @@
 <template>
   <!-- FIX DISPLAY ISSUES WITH DEVTOOLS OPEN -->
   <base-card>
-    <form>
+    <form @submit.prevent="submitForm">
       <h1>Generate a Playlist</h1>
       <div class="form-row">
         <div class="form-control">
           <label for="user">Username</label>
-          <input type="text" id="user" />
+          <input type="text" id="user" v-model="username" />
           <!-- <p>Username must not be empty</p> -->
         </div>
         <div class="form-control">
           <label for="multi">Multireddit</label>
-          <input type="text" id="multi" />
+          <input type="text" id="multi" v-model="multireddit" />
           <!-- <p>Multireddit must not be empty</p> -->
         </div>
       </div>
       <div class="form-row">
         <div class="form-control">
           <label for="num-songs">Number of songs</label>
-          <input type="number" id="num-songs" />
+          <input type="number" id="num-songs" v-model="numSongs" />
           <!-- <p>Number of songs must be greater than 0</p> -->
         </div>
         <div class="form-control">
           <label for="upvotes">Minimum Upvotes</label>
-          <input type="number" id="numsongs" />
+          <input type="number" id="upvotes" v-model="minUpvotes" />
           <!-- <p>Minimum number of upvotes must be greater than 0</p> -->
         </div>
       </div>
@@ -31,27 +31,138 @@
         <h3>Sort By</h3>
         <div>
           <label for="hot">Hot</label>
-          <input name="sort" type="radio" id="hot" value="hot" />
+          <input name="sort" type="radio" id="hot" value="hot" v-model="sort" />
         </div>
         <div>
           <label for="top">Top</label>
-          <input name="sort" type="radio" id="top" value="top" />
+          <input name="sort" type="radio" id="top" value="top" v-model="sort" />
         </div>
         <div>
           <label for="new">New</label>
-          <input name="sort" type="radio" id="new" value="new" />
+          <input name="sort" type="radio" id="new" value="new" v-model="sort" />
         </div>
         <div>
           <label for="rising">Rising</label>
-          <input name="sort" type="radio" id="rising" value="rising" />
+          <input
+            name="sort"
+            type="radio"
+            id="rising"
+            value="rising"
+            v-model="sort"
+          />
         </div>
         <!-- <p>At least one sort method must be selected</p> -->
+      </div>
+      <div class="form-control">
+        <h3>Top Posts From...</h3>
+        <div>
+          <label for="hour">Hour</label>
+          <input
+            name="time"
+            type="radio"
+            id="hour"
+            value="hour"
+            v-model="top"
+          />
+        </div>
+        <div>
+          <label for="day">Day</label>
+          <input name="time" type="radio" id="day" value="day" v-model="top" />
+        </div>
+        <div>
+          <label for="week">Week</label>
+          <input
+            name="time"
+            type="radio"
+            id="week"
+            value="week"
+            v-model="top"
+          />
+        </div>
+        <div>
+          <label for="month">Month</label>
+          <input
+            name="time"
+            type="radio"
+            id="month"
+            value="month"
+            v-model="top"
+          />
+        </div>
+        <div>
+          <label for="year">Year</label>
+          <input
+            name="time"
+            type="radio"
+            id="year"
+            value="year"
+            v-model="top"
+          />
+        </div>
+        <div>
+          <label for="all">All</label>
+          <input name="time" type="radio" id="all" value="all" v-model="top" />
+        </div>
+        <!-- <p>At least one duration must be selected</p> -->
+      </div>
+      <div class="form-control">
+        <div>
+          <label for="albums">Include Albums?</label>
+          <input type="checkbox" name="albums" id="albums" v-model="albums" />
+        </div>
+        <div>
+          <label for="playlists">Include Playlists?</label>
+          <input
+            type="checkbox"
+            name="playlists"
+            id="playlists"
+            v-model="playlists"
+          />
+        </div>
       </div>
       <!-- <p>Please fix the above errors and submit again.</p> -->
       <base-button mode="flat-green">Create Playlist</base-button>
     </form>
   </base-card>
 </template>
+
+<script>
+export default {
+  emits: ['submission'],
+  data() {
+    return {
+      username: '',
+      multireddit: '',
+      numSongs: 50,
+      minUpvotes: 1,
+      sort: '',
+      top: null,
+      albums: false,
+      playlists: false,
+      showTop: false,
+    };
+  },
+  methods: {
+    submitForm() {
+      let values = {
+        username: this.username,
+        multireddit: this.multireddit,
+        numsongs: this.numSongs,
+        minUpvotes: this.minUpvotes,
+        sort: this.sort,
+        top: this.top,
+        albums: this.albums,
+        playlists: this.playlists,
+      };
+
+      this.$emit('submission', values);
+    },
+    toggleTop() {
+      this.showTop = !this.showTop;
+    },
+  },
+};
+</script>
 
 <style scoped>
 form {

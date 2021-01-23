@@ -1,7 +1,7 @@
 <template>
   <div id="showcase">
     <div class="showcase-content">
-      <playlist-form />
+      <playlist-form @submission="logSubmission" />
     </div>
   </div>
 </template>
@@ -12,6 +12,11 @@ import PlaylistForm from '../components/layout/PlaylistForm.vue';
 export default {
   components: {
     PlaylistForm,
+  },
+  methods: {
+    logSubmission(values) {
+      console.log(values);
+    },
   },
 };
 </script>
