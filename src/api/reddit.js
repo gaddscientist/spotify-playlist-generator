@@ -20,14 +20,31 @@ async function getSubsFromMulti(user, multireddit) {
 }
 
 // Returns object of (key)post title => (value)spotify url
-async function getSpotifySubmissionsFromSub(subreddit, pages) {
+async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
   const pageSize = 25;
   const numPages = pages * pageSize;
   const submissions = {};
+  let results;
 
-  reddit
-    .getSubreddit(subreddit)
-    .getHot({ limit: numPages, count: numPages })
+  if (sort === 'hot') {
+    results = reddit
+      .getSubreddit(subreddit)
+      .getHot({ limit: numPages, count: numPages });
+  } else if (sort === 'top') {
+    results = reddit
+      .getSubreddit(subreddit)
+      .getTop({ limit: numPages, count: numPages, time: time });
+  } else if (sort === 'new') {
+    results = reddit
+      .getSubreddit(subreddit)
+      .getNew({ limit: numPages, count: numPages });
+  } else if (sort === 'rising') {
+    results = reddit
+      .getSubreddit(subreddit)
+      .getRising({ limit: numPages, count: numPages });
+  }
+
+  results
     .then(listing => {
       listing.forEach(submission => {
         if (
@@ -45,13 +62,13 @@ async function getSpotifySubmissionsFromSub(subreddit, pages) {
   return submissions;
 }
 
-async function getSpotifySubmissionsFromMulti(user, multi) {
+async function getSpotifySubmissionsFromMulti(user, multi, sort, time) {
   let submissions = [];
   const subs = await getSubsFromMulti(user, multi);
 
   await Promise.allSettled(
     subs.map(async sub => {
-      const subms = await getSpotifySubmissionsFromSub(sub, 4);
+      const subms = await getSpotifySubmissionsFromSub(sub, 4, sort, time);
       submissions.push(subms);
     })
   );
@@ -59,10 +76,21 @@ async function getSpotifySubmissionsFromMulti(user, multi) {
   return submissions;
 }
 
+// Merges objects of submissions from each subreddit into one object
+function organizeResults(results) {
+  let organizedResults = {};
+  results.forEach(result => {
+    organizedResults = { ...organizedResults, ...result };
+  });
+  return organizedResults;
+}
+
+// Testing
 let results;
-getSpotifySubmissionsFromMulti('N0_FREE_REFILLS', 'hiphop').then(
+getSpotifySubmissionsFromMulti('N0_FREE_REFILLS', 'hiphop', 'hot').then(
   subms => (results = subms)
 );
 setTimeout(() => {
-  console.log(results);
+  const organizedResults = organizeResults(results);
+  console.log(organizedResults);
 }, 3000);
