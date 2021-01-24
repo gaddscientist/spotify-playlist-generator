@@ -31,15 +31,36 @@
         <h3>Sort By</h3>
         <div>
           <label for="hot">Hot</label>
-          <input name="sort" type="radio" id="hot" value="hot" v-model="sort" />
+          <input
+            name="sort"
+            type="radio"
+            id="hot"
+            value="hot"
+            @change="toggleTop"
+            v-model="sort"
+          />
         </div>
         <div>
           <label for="top">Top</label>
-          <input name="sort" type="radio" id="top" value="top" v-model="sort" />
+          <input
+            name="sort"
+            type="radio"
+            id="top"
+            value="top"
+            @change="toggleTop"
+            v-model="sort"
+          />
         </div>
         <div>
           <label for="new">New</label>
-          <input name="sort" type="radio" id="new" value="new" v-model="sort" />
+          <input
+            name="sort"
+            type="radio"
+            id="new"
+            value="new"
+            @change="toggleTop"
+            v-model="sort"
+          />
         </div>
         <div>
           <label for="rising">Rising</label>
@@ -48,13 +69,15 @@
             type="radio"
             id="rising"
             value="rising"
+            @change="toggleTop"
             v-model="sort"
           />
         </div>
         <!-- <p>At least one sort method must be selected</p> -->
       </div>
-      <div class="form-control">
+      <div class="form-control" v-if="showTop">
         <h3>Top Posts From...</h3>
+
         <div>
           <label for="hour">Hour</label>
           <input
@@ -158,7 +181,7 @@ export default {
       this.$emit('submission', values);
     },
     toggleTop() {
-      this.showTop = !this.showTop;
+      this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
     },
   },
 };

@@ -62,13 +62,13 @@ async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
   return submissions;
 }
 
-async function getSpotifySubmissionsFromMulti(user, multi, sort, time) {
+async function getSpotifySubmissionsFromMulti(user, multi, sort, top) {
   let submissions = [];
   const subs = await getSubsFromMulti(user, multi);
 
   await Promise.allSettled(
     subs.map(async sub => {
-      const subms = await getSpotifySubmissionsFromSub(sub, 4, sort, time);
+      const subms = await getSpotifySubmissionsFromSub(sub, 4, sort, top);
       submissions.push(subms);
     })
   );
@@ -86,11 +86,5 @@ function organizeResults(results) {
 }
 
 // Testing
-let results;
-getSpotifySubmissionsFromMulti('N0_FREE_REFILLS', 'hiphop', 'hot').then(
-  subms => (results = subms)
-);
-setTimeout(() => {
-  const organizedResults = organizeResults(results);
-  console.log(organizedResults);
-}, 3000);
+
+export { getSpotifySubmissionsFromMulti, organizeResults };
