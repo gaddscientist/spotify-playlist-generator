@@ -192,6 +192,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-width: 25rem;
 }
 .form-control {
   margin: 0.5rem 0;

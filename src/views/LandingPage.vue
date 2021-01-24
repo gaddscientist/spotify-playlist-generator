@@ -20,21 +20,27 @@ export default {
     };
   },
   methods: {
-    getSubmissions(values) {
-      reddit
-        .getSpotifySubmissionsFromMulti(
-          values.username,
-          values.multireddit,
-          values.sort,
-          values.top
-        )
-        .then(results => {
-          setTimeout(() => {
-            this.results = reddit.organizeResults(results);
-            console.log(this.results);
-          }, 2000);
-        });
+    async getSubmissions(values) {
+      const results = await reddit.getSpotifySubmissionsFromMulti(
+        values.username,
+        values.multireddit,
+        values.sort,
+        values.top
+      );
+      results.forEach(result => console.log(result));
+      // this.results = this.organizeResults(results);
     },
+    organizeResults(results) {
+      let organizedResults = {};
+      results.forEach(result => {
+        organizedResults = { ...organizedResults, ...result };
+      });
+
+      return organizedResults;
+    },
+  },
+  watch: {
+    results() {},
   },
 };
 </script>

@@ -23,7 +23,8 @@ async function getSubsFromMulti(user, multireddit) {
 async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
   const pageSize = 25;
   const numPages = pages * pageSize;
-  const submissions = {};
+  // const submissions = {};
+  const submissions = [];
   let results;
 
   if (sort === 'hot') {
@@ -51,7 +52,8 @@ async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
           submission.secure_media !== null &&
           submission.secure_media.type === 'open.spotify.com'
         ) {
-          submissions[submission.title] = submission.url;
+          // submissions[submission.title] = submission.url;
+          submissions.push(submission);
         }
       });
     })
@@ -63,17 +65,11 @@ async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
 }
 
 async function getSpotifySubmissionsFromMulti(user, multi, sort, top) {
-  let submissions = [];
   const subs = await getSubsFromMulti(user, multi);
 
-  await Promise.allSettled(
-    subs.map(async sub => {
-      const subms = await getSpotifySubmissionsFromSub(sub, 4, sort, top);
-      submissions.push(subms);
-    })
+  return Promise.all(
+    subs.map(async sub => await getSpotifySubmissionsFromSub(sub, 4, sort, top))
   );
-
-  return submissions;
 }
 
 // Merges objects of submissions from each subreddit into one object
