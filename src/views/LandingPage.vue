@@ -27,20 +27,23 @@ export default {
         values.sort,
         values.top
       );
-      results.forEach(result => console.log(result));
-      // this.results = this.organizeResults(results);
+
+      setTimeout(() => {
+        this.results = this.organizeResults(results);
+      }, 2000);
     },
     organizeResults(results) {
-      let organizedResults = {};
+      let organizedResults = [];
       results.forEach(result => {
-        organizedResults = { ...organizedResults, ...result };
+        organizedResults.push(...result);
       });
+
+      organizedResults = organizedResults.filter(
+        (item, index, self) => index === self.findIndex(t => t.url === item.url)
+      );
 
       return organizedResults;
     },
-  },
-  watch: {
-    results() {},
   },
 };
 </script>

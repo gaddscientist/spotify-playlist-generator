@@ -19,11 +19,9 @@ async function getSubsFromMulti(user, multireddit) {
   return subs;
 }
 
-// Returns object of (key)post title => (value)spotify url
 async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
   const pageSize = 25;
   const numPages = pages * pageSize;
-  // const submissions = {};
   const submissions = [];
   let results;
 
@@ -80,7 +78,5 @@ function organizeResults(results) {
   });
   return organizedResults;
 }
-
-// Testing
 
 export { getSpotifySubmissionsFromMulti, organizeResults };
