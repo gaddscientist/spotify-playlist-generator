@@ -51,8 +51,6 @@ export default {
 
 <style scoped>
 #showcase {
-  background: #333 url('../assets/spotify_background_logo.jpeg') no-repeat fixed
-    center/cover;
   min-height: 93vh;
   color: #fff;
 }

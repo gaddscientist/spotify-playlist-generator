@@ -4,27 +4,27 @@
       <div class="playlist">
         <div class="table-header">
           <!-- Title -->
-          <div>Title</div>
+          <div class="column-header-item">Title</div>
           <!-- Artist -->
-          <div>Artist</div>
+          <div class="column-header-item">Artist</div>
           <!-- Album -->
-          <div>Album</div>
+          <div class="column-header-item">Album</div>
           <!-- Date Added -->
-          <div>Date Added</div>
+          <div class="column-header-item">Date Added</div>
           <!-- Duration -->
-          <div>Duration</div>
+          <div class="column-header-item">Duration</div>
         </div>
         <div class="table-row" v-for="(track, index) in tracks" :key="index">
           <!-- Title -->
-          <div>{{ track.title }}</div>
+          <div class="column-row-item">{{ track.title }}</div>
           <!-- Artist -->
-          <div>{{ track.artist }}</div>
+          <div class="column-row-item">{{ track.artist }}</div>
           <!-- Album -->
-          <div>{{ track.album }}</div>
+          <div class="column-row-item">{{ track.album }}</div>
           <!-- Date Added -->
-          <div>{{ track.date }}</div>
+          <div class="column-row-item">{{ track.date }}</div>
           <!-- Duration -->
-          <div>{{ track.duration }}</div>
+          <div class="column-row-item">{{ track.duration }}</div>
         </div>
       </div>
     </base-card>
@@ -46,35 +46,35 @@ export default {
           artist: 'Gang Starr',
           album: 'Moment Of Truth',
           date: '2015-05-13',
-          duration: '2.58',
+          duration: '2:58',
         },
         {
           title: 'Deadly Combination',
           artist: 'Big L, Tupac',
           album: 'The Big Picture',
           date: '2019-02-18',
-          duration: '2.32',
+          duration: '2:32',
         },
         {
           title: 'Still',
           artist: 'Geto Boys',
           album: 'The Resurrection',
           date: '2019-03-20',
-          duration: '4.00',
+          duration: '4:00',
         },
         {
           title: 'Drop',
           artist: 'The Pharcyde',
           album: 'Labcabincalifornia',
           date: '2020-02-25',
-          duration: '5.34',
+          duration: '5:34',
         },
         {
           title: 'Grown Man Sport',
           artist: 'Pete Rock, Inl',
           album: 'Center of Attention',
           date: '2018-07-17',
-          duration: '4.36',
+          duration: '4:36',
         },
       ],
     };
@@ -84,9 +84,8 @@ export default {
 
 <style scoped>
 .content {
-  background: #333 url('../assets/spotify_background_logo.jpeg') no-repeat fixed
-    center/cover;
   min-height: 93vh;
+  margin-top: 2rem;
 }
 .playlist {
   display: flex;
@@ -97,18 +96,15 @@ export default {
 
 .table-header,
 .table-row {
-  position: relative;
   display: flex;
   min-height: 40px;
   padding: 5px;
   color: #fff;
-  background: #1d1f20;
   font-size: 13px;
-  line-height: 15px;
   border-bottom: 1px solid #333;
 }
-
-div {
+.column-header-item,
+.column-row-item {
   display: flex;
   flex: 1;
   align-items: center;

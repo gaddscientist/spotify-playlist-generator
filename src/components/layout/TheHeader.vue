@@ -2,7 +2,7 @@
   <nav id="navbar">
     <div class="title">
       <img id="logo" alt="Spotify logo" src="@/assets/spotify_logo_green.png" />
-      <h2>Playlist Generator</h2>
+      <h3>Playlist Generator</h3>
     </div>
     <ul>
       <li><router-link to="/">Home</router-link></li>
@@ -14,6 +14,8 @@
 </template>
 
 <style scoped>
+nav {
+}
 #logo {
   height: 35px;
   margin-right: 0.25rem;

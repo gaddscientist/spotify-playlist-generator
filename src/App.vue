@@ -27,6 +27,11 @@ html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
 }
 
+body {
+  background: #333 url('./assets/spotify_background_logo.jpeg') no-repeat fixed
+    center/cover;
+}
+
 a {
   text-decoration: none;
 }
