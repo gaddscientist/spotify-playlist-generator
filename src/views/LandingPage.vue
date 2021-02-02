@@ -30,7 +30,7 @@ export default {
         );
 
         setTimeout(() => {
-          this.results = this.organizeResults(results);
+          this.results = this.processResults(results);
           console.log(this.results);
         }, 2000);
       } else {
@@ -47,17 +47,35 @@ export default {
         }, 2000);
       }
     },
-    organizeResults(results) {
-      let organizedResults = [];
+    processResults(results) {
+      const resultsArr = [];
       results.forEach(result => {
-        organizedResults.push(...result);
+        resultsArr.push(...result);
       });
 
-      organizedResults = organizedResults.filter(
-        (item, index, self) => index === self.findIndex(t => t.url === item.url)
-      );
+      const urls = resultsArr
+        .filter(
+          (item, index, self) =>
+            index === self.findIndex(t => t.url === item.url)
+        )
+        .map(item => item.url);
 
-      return organizedResults;
+      const links = { tracks: [], albums: [], playlists: [] };
+      urls.forEach(url => {
+        const submissionType = url.split('/')[3];
+        const submissionId = url.split('/')[4].split('?')[0];
+        if (submissionType === 'track') {
+          links.tracks.push(submissionId);
+        } else if (submissionType === 'album') {
+          links.albums.push(submissionId);
+        } else if (submissionType === 'playlist') {
+          links.playlists.push(submissionId);
+        } else {
+          // Print error?
+        }
+      });
+
+      return links;
     },
   },
 };
@@ -65,8 +83,8 @@ export default {
 
 <style scoped>
 #showcase {
-  min-height: 93vh;
   color: #fff;
+  min-height: 93vh;
 }
 
 #showcase .showcase-content {

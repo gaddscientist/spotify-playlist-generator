@@ -1,5 +1,6 @@
+<!-- @TODO -->
+<!-- FIX DISPLAY ISSUES WITH DEVTOOLS OPEN -->
 <template>
-  <!-- FIX DISPLAY ISSUES WITH DEVTOOLS OPEN -->
   <base-card>
     <form @submit.prevent="submitForm">
       <h1>Generate a Playlist</h1>
@@ -186,6 +187,7 @@
 export default {
   emits: ['submission'],
   data() {
+    // Consider moving to vuex
     return {
       username: '',
       multireddit: '',
@@ -202,6 +204,7 @@ export default {
   },
   methods: {
     submitForm() {
+      // Consider moving to vuex
       let values = {
         username: this.username,
         multireddit: this.multireddit,
@@ -217,9 +220,11 @@ export default {
 
       this.$emit('submission', values);
     },
+    // Shows/hides sort options if 'Top' isn't selected
     toggleTop() {
       this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
     },
+    // Shows either multireddit inputs or subreddit input
     toggleRedditType() {
       this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
     },
