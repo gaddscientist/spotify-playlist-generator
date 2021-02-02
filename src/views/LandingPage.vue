@@ -30,6 +30,7 @@ export default {
 
       setTimeout(() => {
         this.results = this.organizeResults(results);
+        console.log(this.results);
       }, 2000);
     },
     organizeResults(results) {
