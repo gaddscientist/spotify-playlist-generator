@@ -21,17 +21,31 @@ export default {
   },
   methods: {
     async getSubmissions(values) {
-      const results = await reddit.getSpotifySubmissionsFromMulti(
-        values.username,
-        values.multireddit,
-        values.sort,
-        values.top
-      );
+      if (values.redditType === 'multireddit') {
+        const results = await reddit.getSpotifySubmissionsFromMulti(
+          values.username,
+          values.multireddit,
+          values.sort,
+          values.top
+        );
 
-      setTimeout(() => {
-        this.results = this.organizeResults(results);
-        console.log(this.results);
-      }, 2000);
+        setTimeout(() => {
+          this.results = this.organizeResults(results);
+          console.log(this.results);
+        }, 2000);
+      } else {
+        const results = await reddit.getSpotifySubmissionsFromSub(
+          values.subreddit,
+          4,
+          values.sort,
+          values.top
+        );
+
+        setTimeout(() => {
+          this.results = results;
+          console.log(this.results);
+        }, 2000);
+      }
     },
     organizeResults(results) {
       let organizedResults = [];

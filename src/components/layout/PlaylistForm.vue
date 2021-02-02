@@ -5,6 +5,39 @@
       <h1>Generate a Playlist</h1>
       <div class="form-row">
         <div class="form-control">
+          <div>
+            <label for="subreddit">Subreddit</label>
+            <input
+              name="redditType"
+              type="radio"
+              id="subreddit"
+              value="subreddit"
+              @change="toggleRedditType"
+              v-model="redditType"
+            />
+          </div>
+          <div>
+            <label for="multireddit">Multireddit</label>
+            <input
+              name="redditType"
+              type="radio"
+              id="multireddit"
+              value="multireddit"
+              @change="toggleRedditType"
+              v-model="redditType"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="form-row" v-if="redditType === 'subreddit'">
+        <div class="form-control">
+          <label for="subreddit">Subreddit</label>
+          <input type="text" id="subreddit" v-model="subreddit" />
+          <!-- <p>Subreddit must not be empty</p> -->
+        </div>
+      </div>
+      <div class="form-row" v-else>
+        <div class="form-control">
           <label for="user">Username</label>
           <input type="text" id="user" v-model="username" />
           <!-- <p>Username must not be empty</p> -->
@@ -156,9 +189,11 @@ export default {
     return {
       username: '',
       multireddit: '',
+      subreddit: '',
+      redditType: 'subreddit',
       numSongs: 50,
       minUpvotes: 1,
-      sort: '',
+      sort: 'hot',
       top: null,
       albums: false,
       playlists: false,
@@ -170,6 +205,8 @@ export default {
       let values = {
         username: this.username,
         multireddit: this.multireddit,
+        subreddit: this.subreddit,
+        redditType: this.redditType,
         numsongs: this.numSongs,
         minUpvotes: this.minUpvotes,
         sort: this.sort,
@@ -181,6 +218,9 @@ export default {
       this.$emit('submission', values);
     },
     toggleTop() {
+      this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
+    },
+    toggleRedditType() {
       this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
     },
   },

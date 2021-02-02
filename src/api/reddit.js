@@ -79,4 +79,8 @@ function organizeResults(results) {
   return organizedResults;
 }
 
-export { getSpotifySubmissionsFromMulti, organizeResults };
+export {
+  getSpotifySubmissionsFromSub,
+  getSpotifySubmissionsFromMulti,
+  organizeResults,
+};
