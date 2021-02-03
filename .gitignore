@@ -24,4 +24,4 @@ pnpm-debug.log*
 
 # Additional ignore
 .browserslistrc
-credentials.json
+*Credentials.json

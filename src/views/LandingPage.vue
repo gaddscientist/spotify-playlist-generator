@@ -17,11 +17,13 @@ export default {
   data() {
     return {
       results: null,
+      redditType: null,
     };
   },
   methods: {
     async getSubmissions(values) {
       if (values.redditType === 'multireddit') {
+        this.redditType = values.redditType;
         const results = await reddit.getSpotifySubmissionsFromMulti(
           values.username,
           values.multireddit,
@@ -34,6 +36,7 @@ export default {
           console.log(this.results);
         }, 2000);
       } else {
+        this.redditType = values.redditType;
         const results = await reddit.getSpotifySubmissionsFromSub(
           values.subreddit,
           4,
@@ -42,16 +45,21 @@ export default {
         );
 
         setTimeout(() => {
-          this.results = results;
+          // this.results = results;
+          this.results = this.processResults(results);
           console.log(this.results);
         }, 2000);
       }
     },
     processResults(results) {
-      const resultsArr = [];
-      results.forEach(result => {
-        resultsArr.push(...result);
-      });
+      let resultsArr = [];
+      if (this.redditType === 'multireddit') {
+        results.forEach(result => {
+          resultsArr.push(...result);
+        });
+      } else {
+        resultsArr = results;
+      }
 
       const urls = resultsArr
         .filter(

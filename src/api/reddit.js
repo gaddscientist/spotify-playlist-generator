@@ -3,7 +3,7 @@
  */
 
 'use strict';
-const credentials = require('../../credentials.json');
+const credentials = require('../../redditCredentials.json');
 const snoowrap = require('snoowrap');
 const reddit = new snoowrap(credentials);
 
