@@ -9,6 +9,7 @@
 <script>
 import PlaylistForm from '../components/layout/PlaylistForm.vue';
 import * as reddit from '../api/reddit.js';
+import * as spotify from '../api/spotify.js';
 
 export default {
   components: {
@@ -18,6 +19,7 @@ export default {
     return {
       results: null,
       redditType: null,
+      tracks: null,
     };
   },
   methods: {
@@ -45,7 +47,6 @@ export default {
         );
 
         setTimeout(() => {
-          // this.results = results;
           this.results = this.processResults(results);
           console.log(this.results);
         }, 2000);
@@ -84,6 +85,10 @@ export default {
       });
 
       return links;
+    },
+    async getSpotifyTracks(ids) {
+      const results = await spotify.getSingleTracks(ids);
+      this.tracks = results;
     },
   },
 };

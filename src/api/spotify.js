@@ -5,7 +5,6 @@
 'use strict';
 const fs = require('fs');
 const credentials = require('../../spotifyCredentials.json');
-const request = require('request');
 const axios = require('axios');
 // Query string needed so payload is in correct format
 const querystring = require('querystring');
@@ -41,7 +40,7 @@ function getNewAuthToken() {
   });
 }
 
-function getSingleTracks(trackIds) {
+async function getSingleTracks(trackIds) {
   let config = {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
@@ -49,19 +48,22 @@ function getSingleTracks(trackIds) {
     },
   };
 
-  Promise.all(
+  return Promise.all(
     trackIds.map(
       async id =>
         await axios.get(`https://api.spotify.com/v1/tracks/${id}`, config)
     )
-  )
-    .then(results => results.forEach(result => console.log(result)))
-    .catch(err => console.log(err));
+  );
 }
 
 // TESTING
-const testTracks = ['2G90KzHn8ynh7Ai48hPJoR', '5OkLfBehmMPQXnCK9tNRd8'];
-getSingleTracks(testTracks);
+// const testTracks = ['2G90KzHn8ynh7Ai48hPJoR', '5OkLfBehmMPQXnCK9tNRd8'];
+// getSingleTracks(testTracks).then(results =>
+//   results.forEach(result => {
+//     console.log(result.data.name);
+//     console.log(result.data.artists[0].name);
+//   })
+// );
 
 // function getTracksFromAlbums() {}
 
@@ -85,3 +87,5 @@ getSingleTracks(testTracks);
 //-------------
 
 // getTracks() {}
+
+export { getSingleTracks };
