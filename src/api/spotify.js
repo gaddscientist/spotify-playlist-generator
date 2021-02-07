@@ -3,7 +3,7 @@
  */
 
 'use strict';
-const fs = require('fs');
+// const fs = require('fs');
 const credentials = require('../../spotifyCredentials.json');
 const axios = require('axios');
 // Query string needed so payload is in correct format
@@ -33,10 +33,10 @@ function getNewAuthToken() {
   axios.post(url, data, config).then(res => {
     credentials.authorization_code = res.data.access_token;
     credentials.lastTimeStamp = Date.now();
-    fs.writeFileSync(
-      'spotifyCredentials.json',
-      JSON.stringify(credentials, null, 4)
-    );
+    // fs.writeFileSync(
+    //   'spotifyCredentials.json',
+    //   JSON.stringify(credentials, null, 4)
+    // );
   });
 }
 

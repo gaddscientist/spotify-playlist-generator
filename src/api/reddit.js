@@ -29,45 +29,33 @@ async function getSubsFromMulti(user, multireddit) {
 async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
   const pageSize = 25;
   const numPages = pages * pageSize;
-  const submissions = [];
   let results;
 
   // Gets all submissions based on sort type
   if (sort === 'hot') {
-    results = reddit
+    results = await reddit
       .getSubreddit(subreddit)
       .getHot({ limit: numPages, count: numPages });
   } else if (sort === 'top') {
-    results = reddit
+    results = await reddit
       .getSubreddit(subreddit)
       .getTop({ limit: numPages, count: numPages, time: time });
   } else if (sort === 'new') {
-    results = reddit
+    results = await reddit
       .getSubreddit(subreddit)
       .getNew({ limit: numPages, count: numPages });
   } else if (sort === 'rising') {
-    results = reddit
+    results = await reddit
       .getSubreddit(subreddit)
       .getRising({ limit: numPages, count: numPages });
   }
 
   // Filters out non-spotify submissions
-  results
-    .then(listing => {
-      listing.forEach(submission => {
-        if (
-          submission.secure_media !== null &&
-          submission.secure_media.type === 'open.spotify.com'
-        ) {
-          submissions.push(submission);
-        }
-      });
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-  return submissions;
+  return results.filter(
+    result =>
+      result.secure_media !== null &&
+      result.secure_media.type === 'open.spotify.com'
+  );
 }
 
 // Returns array of reddit submissions to a given multireddit

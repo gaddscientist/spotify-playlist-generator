@@ -32,11 +32,8 @@ export default {
           values.sort,
           values.top
         );
-
-        setTimeout(() => {
-          this.results = this.processResults(results);
-          console.log(this.results);
-        }, 2000);
+        this.results = this.processResults(results);
+        console.log(this.results);
       } else {
         this.redditType = values.redditType;
         const results = await reddit.getSpotifySubmissionsFromSub(
@@ -45,11 +42,8 @@ export default {
           values.sort,
           values.top
         );
-
-        setTimeout(() => {
-          this.results = this.processResults(results);
-          console.log(this.results);
-        }, 2000);
+        this.results = this.processResults(results);
+        console.log(this.results);
       }
     },
     processResults(results) {
