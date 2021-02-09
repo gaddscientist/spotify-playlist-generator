@@ -33,7 +33,6 @@ export default {
           values.top
         );
         this.results = this.processResults(results);
-        console.log(this.results);
       } else {
         this.redditType = values.redditType;
         const results = await reddit.getSpotifySubmissionsFromSub(
@@ -43,36 +42,14 @@ export default {
           values.top
         );
         this.results = this.processResults(results);
-        console.log(this.results);
-        // const tempObj = [
-        //   {
-        //     title: 'Work',
-        //     artist: 'Gang Starr',
-        //     album: 'Moment Of Truth',
-        //     duration: '2:58',
-        //   },
-        //   {
-        //     title: 'Deadly Combination',
-        //     artist: 'Big L, Tupac',
-        //     album: 'The Big Picture',
-        //     duration: '2:32',
-        //   },
-        // ];
-        this.$router.push({
-          name: 'PlaylistPage',
-          // params: { tracks: this.results.tracks },
-          // params: { tracks: tempObj },
-          params: {
-            // tracks: {
-            //   title: 'Deadly Combination',
-            //   artist: 'Big L, Tupac',
-            //   album: 'The Big Picture',
-            //   duration: '2:32',
-            // },
-            tracks: { a: 'b' },
-          },
-        });
       }
+      this.$store.dispatch('setSubmissionIds', this.results);
+      const trackObjs = await spotify.getSingleTracks(this.results.tracks);
+      this.$store.dispatch('setTracks', trackObjs);
+      // console.log(this.results);
+      this.$router.push({
+        name: 'PlaylistPage',
+      });
     },
     processResults(results) {
       let resultsArr = [];
