@@ -1,7 +1,7 @@
 <template>
   <div id="showcase">
     <div class="showcase-content">
-      <playlist-form :tracks="tracks" @submission="getSubmissions" />
+      <playlist-form @submission="getSubmissions" />
     </div>
   </div>
 </template>
@@ -18,42 +18,51 @@ export default {
   data() {
     return {
       results: null,
-      redditType: null,
-      tracks: null,
+      redditType: '',
     };
   },
   methods: {
+    // Gets reddit submissions based on user specified form input
     async getSubmissions(values) {
-      if (values.redditType === 'multireddit') {
-        this.redditType = values.redditType;
+      this.redditType = values.redditType;
+
+      if (this.redditType === 'multireddit') {
         const results = await reddit.getSpotifySubmissionsFromMulti(
           values.username,
           values.multireddit,
           values.sort,
           values.top
         );
+
         this.results = this.processResults(results);
       } else {
-        this.redditType = values.redditType;
+        // Subreddit
         const results = await reddit.getSpotifySubmissionsFromSub(
           values.subreddit,
           4,
           values.sort,
           values.top
         );
+
         this.results = this.processResults(results);
       }
-      this.$store.dispatch('setSubmissionIds', this.results);
-      const trackObjs = await spotify.getSingleTracks(this.results.tracks);
-      this.$store.dispatch('setTracks', trackObjs);
-      // console.log(this.results);
+
+      // Gets spotify objects and stores them in Vuex
+      this.$store.dispatch(
+        'updateTracks',
+        await spotify.getSingleTracks(this.results.tracks)
+      );
+
+      // Changes view to playlist
       this.$router.push({
         name: 'PlaylistPage',
       });
     },
+    // Organizes reddit submissions into lists for each type(track/album/playlist)
     processResults(results) {
       let resultsArr = [];
       if (this.redditType === 'multireddit') {
+        // Flattens objects from each subreddit into one array
         results.forEach(result => {
           resultsArr.push(...result);
         });
@@ -62,13 +71,17 @@ export default {
       }
 
       const urls = resultsArr
+        // Filters out any submissions that may have been repeated
         .filter(
           (item, index, self) =>
             index === self.findIndex(t => t.url === item.url)
         )
+        // Returns array of urls from each submission
         .map(item => item.url);
 
       const links = { tracks: [], albums: [], playlists: [] };
+
+      // Extracts the ID from each url and stores in corresponding array
       urls.forEach(url => {
         const submissionType = url.split('/')[3];
         const submissionId = url.split('/')[4].split('?')[0];
@@ -79,15 +92,11 @@ export default {
         } else if (submissionType === 'playlist') {
           links.playlists.push(submissionId);
         } else {
-          // Print error?
+          // Print error
         }
       });
 
       return links;
-    },
-    async getSpotifyTracks(ids) {
-      const results = await spotify.getSingleTracks(ids);
-      this.tracks = results;
     },
   },
 };

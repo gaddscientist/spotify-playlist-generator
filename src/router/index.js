@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import LandingPage from '../views/LandingPage.vue';
+import FormPage from '../views/FormPage.vue';
 import PlaylistPage from '../views/PlaylistPage.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'LandingPage',
-    component: LandingPage,
+    name: 'FormPage',
+    component: FormPage,
   },
   {
     path: '/playlist',
