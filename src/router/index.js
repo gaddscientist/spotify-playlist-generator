@@ -10,7 +10,7 @@ const routes = [
   },
   {
     path: '/playlist',
-    name: 'PlayistPage',
+    name: 'PlaylistPage',
     component: PlaylistPage,
   },
   // {

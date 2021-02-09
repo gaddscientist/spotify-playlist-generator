@@ -5,6 +5,62 @@ export default createStore({
   state() {
     return {
       submissions: {},
+      tracks: [
+        {
+          title: 'Work',
+          artist: 'Gang Starr',
+          album: 'Moment Of Truth',
+          duration: '2:58',
+        },
+        {
+          title: 'Deadly Combination',
+          artist: 'Big L, Tupac',
+          album: 'The Big Picture',
+          duration: '2:32',
+        },
+        {
+          title: 'Still',
+          artist: 'Geto Boys',
+          album: 'The Resurrection',
+          duration: '4:00',
+        },
+        {
+          title: 'Drop',
+          artist: 'The Pharcyde',
+          album: 'Labcabincalifornia',
+          duration: '5:34',
+        },
+        {
+          title: 'Grown Man Sport',
+          artist: 'Pete Rock, Inl',
+          album: 'Center of Attention',
+          duration: '4:36',
+        },
+        {
+          title: 'There He Go',
+          artist: 'ScHoolboy Q',
+          album: 'Habits & Contradictions',
+          duration: '3:20',
+        },
+        {
+          title: 'The Light',
+          artist: 'Common',
+          album: 'Go! Common Classics',
+          duration: '4:04',
+        },
+        {
+          title: 'Survival Tactics',
+          artist: 'Joey Bada$$, Capital Steez',
+          album: '1999',
+          duration: '3:23',
+        },
+        {
+          title: 'Cherry WIne',
+          artist: 'Nas, Amy Winehouse',
+          album: 'Life Is Good(Deluxe)',
+          duration: '5:56',
+        },
+      ],
     };
   },
   mutations: {
@@ -20,19 +76,13 @@ export default createStore({
         payload.sort,
         payload.top
       );
-
-      // const submissions = {};
-
-      for (let i = 0; i < results.length; i++) {
-        if (results[i].length > 0) {
-          console.log(results[i]);
-        }
-        setTimeout(() => {
-          console.log(results[i][0]._hasFetched);
-        }, 3000);
-      }
+      results;
     },
   },
-  getters: {},
+  getters: {
+    getTracks(state) {
+      return state.tracks;
+    },
+  },
   modules: {},
 });

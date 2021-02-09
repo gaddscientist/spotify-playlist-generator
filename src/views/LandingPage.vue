@@ -1,7 +1,7 @@
 <template>
   <div id="showcase">
     <div class="showcase-content">
-      <playlist-form @submission="getSubmissions" />
+      <playlist-form :tracks="tracks" @submission="getSubmissions" />
     </div>
   </div>
 </template>
@@ -44,6 +44,34 @@ export default {
         );
         this.results = this.processResults(results);
         console.log(this.results);
+        // const tempObj = [
+        //   {
+        //     title: 'Work',
+        //     artist: 'Gang Starr',
+        //     album: 'Moment Of Truth',
+        //     duration: '2:58',
+        //   },
+        //   {
+        //     title: 'Deadly Combination',
+        //     artist: 'Big L, Tupac',
+        //     album: 'The Big Picture',
+        //     duration: '2:32',
+        //   },
+        // ];
+        this.$router.push({
+          name: 'PlaylistPage',
+          // params: { tracks: this.results.tracks },
+          // params: { tracks: tempObj },
+          params: {
+            // tracks: {
+            //   title: 'Deadly Combination',
+            //   artist: 'Big L, Tupac',
+            //   album: 'The Big Picture',
+            //   duration: '2:32',
+            // },
+            tracks: { a: 'b' },
+          },
+        });
       }
     },
     processResults(results) {

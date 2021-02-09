@@ -13,7 +13,6 @@
               type="radio"
               id="subreddit"
               value="subreddit"
-              @change="toggleRedditType"
               v-model="redditType"
             />
           </div>
@@ -24,7 +23,6 @@
               type="radio"
               id="multireddit"
               value="multireddit"
-              @change="toggleRedditType"
               v-model="redditType"
             />
           </div>
@@ -222,10 +220,6 @@ export default {
     },
     // Shows/hides sort options if 'Top' isn't selected
     toggleTop() {
-      this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
-    },
-    // Shows either multireddit inputs or subreddit input
-    toggleRedditType() {
       this.sort === 'top' ? (this.showTop = true) : (this.showTop = false);
     },
   },

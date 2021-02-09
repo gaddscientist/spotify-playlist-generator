@@ -16,14 +16,14 @@ if (credentials.lastTimeStamp <= Date.now() - 3000000) {
 }
 
 function getNewAuthToken() {
-  let url = 'https://accounts.spotify.com/api/token';
+  const url = 'https://accounts.spotify.com/api/token';
 
-  let data = querystring.stringify({
+  const data = querystring.stringify({
     grant_type: 'refresh_token',
     refresh_token: credentials.refresh_token,
   });
 
-  let config = {
+  const config = {
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       Authorization: credentials.Authorization,
