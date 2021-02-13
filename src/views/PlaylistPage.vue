@@ -24,7 +24,9 @@
           <!-- Duration -->
           <div class="column-row-item duration">{{ track.duration }}</div>
           <!-- Remove -->
-          <button class="column-row-item remove">X</button>
+          <button class="column-row-item remove" @click="removeTrack(index)">
+            X
+          </button>
         </div>
       </div>
     </base-card>
@@ -53,6 +55,9 @@ export default {
         }
       });
       return artistString;
+    },
+    removeTrack(trackIndex) {
+      this.tracks.splice(trackIndex, 1);
     },
   },
 };
