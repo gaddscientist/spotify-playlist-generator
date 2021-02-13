@@ -61,7 +61,15 @@ export default {
         );
       }
 
-      // Changes view to playlist
+      // Gets spotify playlists and sends them to Vuex to get processed
+      if (values.playlists) {
+        this.$store.dispatch(
+          'processPlaylists',
+          await spotify.getPlaylists(this.results.playlists)
+        );
+      }
+
+      // // Changes view to playlist
       this.$router.push({
         name: 'PlaylistPage',
       });

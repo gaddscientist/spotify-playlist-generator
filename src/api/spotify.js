@@ -72,6 +72,22 @@ async function getAlbums(albumIds) {
   );
 }
 
+async function getPlaylists(playlistIds) {
+  let config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + credentials.authorization_code,
+    },
+  };
+
+  return Promise.all(
+    playlistIds.map(
+      async id =>
+        await axios.get(`https://api.spotify.com/v1/playlists/${id}`, config)
+    )
+  );
+}
+
 // TESTING
 // const testTracks = ['2G90KzHn8ynh7Ai48hPJoR', '5OkLfBehmMPQXnCK9tNRd8'];
 // getSingleTracks(testTracks).then(results =>
@@ -104,4 +120,4 @@ async function getAlbums(albumIds) {
 
 // getTracks() {}
 
-export { getSingleTracks, getAlbums };
+export { getSingleTracks, getAlbums, getPlaylists };
