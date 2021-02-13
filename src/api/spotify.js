@@ -56,6 +56,22 @@ async function getSingleTracks(trackIds) {
   );
 }
 
+async function getAlbums(albumIds) {
+  let config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: 'Bearer ' + credentials.authorization_code,
+    },
+  };
+
+  return Promise.all(
+    albumIds.map(
+      async id =>
+        await axios.get(`https://api.spotify.com/v1/albums/${id}`, config)
+    )
+  );
+}
+
 // TESTING
 // const testTracks = ['2G90KzHn8ynh7Ai48hPJoR', '5OkLfBehmMPQXnCK9tNRd8'];
 // getSingleTracks(testTracks).then(results =>
@@ -88,4 +104,4 @@ async function getSingleTracks(trackIds) {
 
 // getTracks() {}
 
-export { getSingleTracks };
+export { getSingleTracks, getAlbums };

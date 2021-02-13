@@ -47,11 +47,19 @@ export default {
         this.results = this.processResults(results);
       }
 
-      // Gets spotify objects and stores them in Vuex
+      // Gets spotify single tracks and sends them to Vuex to get processed
       this.$store.dispatch(
-        'updateTracks',
+        'processTracks',
         await spotify.getSingleTracks(this.results.tracks)
       );
+
+      // Gets spotify albums and sends them to Vuex to get processed
+      if (values.albums) {
+        this.$store.dispatch(
+          'processAlbums',
+          await spotify.getAlbums(this.results.albums)
+        );
+      }
 
       // Changes view to playlist
       this.$router.push({
