@@ -24,7 +24,7 @@ export default createStore({
       payload.forEach(track => {
         processedTracks.push({
           name: track.data.name,
-          artist: track.data.artists[0].name,
+          artists: track.data.artists,
           album: track.data.album.name,
           duration: getDuration(track.data.duration_ms),
         });
@@ -38,7 +38,7 @@ export default createStore({
         album.data.tracks.items.forEach(track => {
           processedTracks.push({
             name: track.name,
-            artist: track.artists[0].name,
+            artists: track.artists,
             album: albumName,
             duration: getDuration(track.duration_ms),
           });
@@ -48,14 +48,17 @@ export default createStore({
     },
     processPlaylists(context, payload) {
       const processedTracks = [];
+      console.log(payload);
       payload.forEach(playlist => {
         playlist.data.tracks.items.forEach(item => {
-          processedTracks.push({
-            name: item.track.name,
-            artist: item.track.artists[0].name,
-            album: item.track.album.name,
-            duration: getDuration(item.track.duration_ms),
-          });
+          if (item.track) {
+            processedTracks.push({
+              name: item.track.name,
+              artists: item.track.artists,
+              album: item.track.album.name,
+              duration: getDuration(item.track.duration_ms),
+            });
+          }
         });
       });
       context.commit('setTracks', processedTracks);

@@ -18,7 +18,7 @@
           <!-- Title -->
           <div class="column-row-item title">{{ track.name }}</div>
           <!-- Artist -->
-          <div class="column-row-item">{{ track.artist }}</div>
+          <div class="column-row-item">{{ getArtists(track.artists) }}</div>
           <!-- Album -->
           <div class="column-row-item">{{ track.album }}</div>
           <!-- Duration -->
@@ -42,6 +42,18 @@ export default {
     return {
       tracks: this.$store.getters['getTracks'],
     };
+  },
+  methods: {
+    getArtists(artists) {
+      let artistString = '';
+      artists.forEach((artist, index) => {
+        artistString += artist.name;
+        if (index < artists.length - 1) {
+          artistString += ', ';
+        }
+      });
+      return artistString;
+    },
   },
 };
 </script>
