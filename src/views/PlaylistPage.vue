@@ -4,26 +4,27 @@
       <div class="playlist">
         <div class="table-header">
           <!-- Title -->
-          <div class="column-header-item">Title</div>
+          <div class="column-header-item title">Title</div>
           <!-- Artist -->
           <div class="column-header-item">Artist</div>
           <!-- Album -->
           <div class="column-header-item">Album</div>
           <!-- Duration -->
-          <div class="column-header-item">Duration</div>
+          <div class="column-header-item duration">Duration</div>
+          <!-- Remove -->
+          <div class="column-header-item remove">Remove</div>
         </div>
         <div class="table-row" v-for="(track, index) in tracks" :key="index">
           <!-- Title -->
-          <!-- <div class="column-row-item">{{ track.title }}</div> -->
-          <div class="column-row-item">{{ track.name }}</div>
+          <div class="column-row-item title">{{ track.name }}</div>
           <!-- Artist -->
-          <!-- <div class="column-row-item">{{ track.artist }}</div> -->
           <div class="column-row-item">{{ track.artist }}</div>
           <!-- Album -->
-          <!-- <div class="column-row-item">{{ track.album }}</div> -->
           <div class="column-row-item">{{ track.album }}</div>
           <!-- Duration -->
-          <div class="column-row-item">{{ track.duration }}</div>
+          <div class="column-row-item duration">{{ track.duration }}</div>
+          <!-- Remove -->
+          <button class="column-row-item remove">X</button>
         </div>
       </div>
     </base-card>
@@ -68,10 +69,35 @@ export default {
 }
 .column-header-item,
 .column-row-item {
-  display: flex;
-  flex: 1;
-  align-items: center;
-  position: relative;
-  margin-right: 10px;
+  flex: 0 1 250px;
+  align-self: center;
+  margin: 0 10px;
+}
+.column-row-item {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.title {
+  flex: 0 0 250px;
+}
+.duration {
+  flex: 0 0 80px;
+  text-align: center;
+}
+.remove {
+  flex: 0 0 60px;
+}
+.column-row-item.remove {
+  border: none;
+  background: transparent;
+  color: red;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.column-row-item.remove:hover {
+  background: red;
+  color: black;
 }
 </style>

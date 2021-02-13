@@ -12,6 +12,6 @@
   box-shadow: 0 2px 24px 8px rgba(0, 0, 0, 1);
   padding: 1rem;
   margin: 0 auto;
-  max-width: 40rem;
+  max-width: 60rem;
 }
 </style>
