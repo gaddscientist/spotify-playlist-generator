@@ -1,5 +1,11 @@
 import { createStore } from 'vuex';
 
+function getDuration(milliseconds) {
+  const minutes = Math.floor(milliseconds / 60000);
+  const seconds = ((milliseconds % 60000) / 1000).toFixed();
+  return minutes + ':' + (seconds < 10 ? '0' : '') + seconds;
+}
+
 export default createStore({
   state() {
     return {
@@ -20,7 +26,7 @@ export default createStore({
           name: track.data.name,
           artist: track.data.artists[0].name,
           album: track.data.album.name,
-          duration: track.data.duration_ms / 1000,
+          duration: getDuration(track.data.duration_ms),
         });
       });
       context.commit('setTracks', processedTracks);
@@ -34,7 +40,7 @@ export default createStore({
             name: track.name,
             artist: track.artists[0].name,
             album: albumName,
-            duration: track.duration_ms / 1000,
+            duration: getDuration(track.duration_ms),
           });
         });
       });
@@ -48,7 +54,7 @@ export default createStore({
             name: item.track.name,
             artist: item.track.artists[0].name,
             album: item.track.album.name,
-            duration: item.track.duration_ms / 1000,
+            duration: getDuration(item.track.duration_ms),
           });
         });
       });
