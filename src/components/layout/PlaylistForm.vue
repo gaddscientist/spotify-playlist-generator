@@ -194,7 +194,7 @@ export default {
       numSongs: 50,
       minUpvotes: 1,
       sort: 'hot',
-      top: null,
+      top: 'all',
       albums: false,
       playlists: false,
       showTop: false,

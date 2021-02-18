@@ -13,6 +13,10 @@ const routes = [
     name: 'PlaylistPage',
     component: PlaylistPage,
   },
+  {
+    path: '/authorized',
+    component: PlaylistPage,
+  },
   // {
   //   path: '/about',
   //   name: 'About',

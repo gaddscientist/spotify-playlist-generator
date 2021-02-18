@@ -1,6 +1,11 @@
 <template>
   <div class="content">
     <base-card>
+      <div class="container">
+        <base-button class="flat-green" @click="exportPlaylist"
+          >Export Playlist</base-button
+        >
+      </div>
       <div class="playlist">
         <div class="table-header">
           <!-- Title -->
@@ -35,10 +40,13 @@
 
 <script>
 import BaseCard from '../components/ui/BaseCard.vue';
+import BaseButton from '../components/ui/BaseButton.vue';
+import * as spotify from '../api/spotify.js';
 
 export default {
   components: {
     BaseCard,
+    BaseButton,
   },
   data() {
     return {
@@ -59,6 +67,20 @@ export default {
     removeTrack(trackIndex) {
       this.tracks.splice(trackIndex, 1);
     },
+    exportPlaylist() {
+      spotify.authorizeUser();
+    },
+  },
+  computed: {
+    access_token() {
+      if (this.$route.hash.includes('access_token')) {
+        return this.$route.hash.split('&')[0].split('=')[1];
+      } else if (this.$route.hash.includes('access_denied')) {
+        return 'denied';
+      } else {
+        return '';
+      }
+    },
   },
 };
 </script>
@@ -67,6 +89,11 @@ export default {
 .content {
   min-height: 93vh;
   margin-top: 2rem;
+  position: relative;
+}
+.container {
+  display: flex;
+  justify-content: center;
 }
 .playlist {
   display: flex;

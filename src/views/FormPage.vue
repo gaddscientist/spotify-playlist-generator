@@ -21,6 +21,9 @@ export default {
       redditType: '',
     };
   },
+  created() {
+    this.results = null;
+  },
   methods: {
     // Gets reddit submissions based on user specified form input
     async getSubmissions(values) {
