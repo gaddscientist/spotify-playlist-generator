@@ -101,9 +101,6 @@ function authorizeUser() {
 async function createPlaylist(accessToken, userName, playlistName) {
   const url = `https://api.spotify.com/v1/users/${userName}/playlists`;
 
-  // const data = querystring.stringify({
-  //   name: playlistName,
-  // });
   const data = {
     name: playlistName,
   };
@@ -115,10 +112,28 @@ async function createPlaylist(accessToken, userName, playlistName) {
     },
   };
 
-  await axios
-    .post(url, data, config)
-    .then(res => console.log(res))
-    .catch(err => console.log(err));
+  return await axios.post(url, data, config);
+  // .then(res => console.log(res))
+  // .catch(err => console.log(err));
+}
+
+async function addTracksToPlaylist(accessToken, playlistId, tracks) {
+  const url = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+
+  const data = {
+    uris: tracks,
+  };
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + accessToken,
+    },
+  };
+
+  return await axios.post(url, data, config);
+  // .then(res => console.log(res))
+  // .catch(err => console.log(err));
 }
 
 // TESTING
@@ -159,4 +174,5 @@ export {
   getPlaylists,
   authorizeUser,
   createPlaylist,
+  addTracksToPlaylist,
 };

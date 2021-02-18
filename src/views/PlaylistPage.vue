@@ -86,13 +86,24 @@ export default {
     authorize() {
       spotify.authorizeUser();
     },
-    exportPlaylist() {
-      spotify.createPlaylist(
+    async exportPlaylist() {
+      const playlistResponse = await spotify.createPlaylist(
         this.access_token,
         this.username,
         this.playlistName
       );
-      // spotify.addTracksToPlaylist(this.$store.getTracks());
+      console.log(playlistResponse);
+      const uris = this.$store.getters['getTracks'].map(track => track.uri);
+      // await spotify.addTracksToPlaylist(this.$store.getters['getTracks']);
+      try {
+        await spotify.addTracksToPlaylist(
+          this.access_token,
+          playlistResponse.data.id,
+          uris
+        );
+      } catch (e) {
+        console.log(e);
+      }
     },
   },
   mounted() {

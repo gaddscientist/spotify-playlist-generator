@@ -25,6 +25,7 @@ export default createStore({
       const processedTracks = [];
       payload.forEach(track => {
         processedTracks.push({
+          uri: 'spotify:track:' + track.data.id,
           name: track.data.name,
           artists: track.data.artists,
           album: track.data.album.name,
@@ -38,7 +39,9 @@ export default createStore({
       payload.forEach(album => {
         const albumName = album.data.name;
         album.data.tracks.items.forEach(track => {
+          console.log(track);
           processedTracks.push({
+            uri: 'spotify:track:' + track.id,
             name: track.name,
             artists: track.artists,
             album: albumName,
@@ -50,11 +53,11 @@ export default createStore({
     },
     processPlaylists(context, payload) {
       const processedTracks = [];
-      console.log(payload);
       payload.forEach(playlist => {
         playlist.data.tracks.items.forEach(item => {
           if (item.track) {
             processedTracks.push({
+              uri: 'spotify:track:' + item.track.id,
               name: item.track.name,
               artists: item.track.artists,
               album: item.track.album.name,
