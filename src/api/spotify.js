@@ -98,6 +98,29 @@ function authorizeUser() {
   window.location.href = `https://accounts.spotify.com/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=${scope}&response_type=${response_type}`;
 }
 
+async function createPlaylist(accessToken, userName, playlistName) {
+  const url = `https://api.spotify.com/v1/users/${userName}/playlists`;
+
+  // const data = querystring.stringify({
+  //   name: playlistName,
+  // });
+  const data = {
+    name: playlistName,
+  };
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + accessToken,
+    },
+  };
+
+  await axios
+    .post(url, data, config)
+    .then(res => console.log(res))
+    .catch(err => console.log(err));
+}
+
 // TESTING
 // const testTracks = ['2G90KzHn8ynh7Ai48hPJoR', '5OkLfBehmMPQXnCK9tNRd8'];
 // getSingleTracks(testTracks).then(results =>
@@ -130,4 +153,10 @@ function authorizeUser() {
 
 // getTracks() {}
 
-export { getSingleTracks, getAlbums, getPlaylists, authorizeUser };
+export {
+  getSingleTracks,
+  getAlbums,
+  getPlaylists,
+  authorizeUser,
+  createPlaylist,
+};

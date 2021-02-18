@@ -2,9 +2,21 @@
   <div class="content">
     <base-card>
       <div class="container">
-        <base-button class="flat-green" @click="exportPlaylist"
-          >Export Playlist</base-button
+        <base-button
+          v-if="access_token === '' || access_token === 'access_deinied'"
+          class="flat-green"
+          @click="authorize"
+          >Authorize To Export</base-button
         >
+        <div v-else>
+          <label for="user">Username: </label>
+          <input type="text" v-model="username" />
+          <label for="name">Playlist Name: </label>
+          <input type="text" v-model="playlistName" />
+          <base-button class="flat-green" @click="exportPlaylist"
+            >Export Playlist</base-button
+          >
+        </div>
       </div>
       <div class="playlist">
         <div class="table-header">
@@ -50,7 +62,11 @@ export default {
   },
   data() {
     return {
-      tracks: this.$store.getters['getTracks'],
+      // tracks: this.$store.getters['getTracks'],
+      tracks: null,
+      access_token: '',
+      username: '',
+      playlistName: '',
     };
   },
   methods: {
@@ -67,25 +83,38 @@ export default {
     removeTrack(trackIndex) {
       this.tracks.splice(trackIndex, 1);
     },
-    exportPlaylist() {
+    authorize() {
       spotify.authorizeUser();
     },
-  },
-  computed: {
-    access_token() {
-      if (this.$route.hash.includes('access_token')) {
-        return this.$route.hash.split('&')[0].split('=')[1];
-      } else if (this.$route.hash.includes('access_denied')) {
-        return 'denied';
-      } else {
-        return '';
-      }
+    exportPlaylist() {
+      spotify.createPlaylist(
+        this.access_token,
+        this.username,
+        this.playlistName
+      );
+      // spotify.addTracksToPlaylist(this.$store.getTracks());
     },
+  },
+  mounted() {
+    this.tracks = this.$store.getters['getTracks'];
+
+    if (this.$route.hash.includes('access_token')) {
+      this.access_token = this.$route.hash.split('&')[0].split('=')[1];
+    } else if (this.$route.hash.includes('access_denied')) {
+      this.access_token = 'denied';
+    }
   },
 };
 </script>
 
 <style scoped>
+label {
+  color: #1ed760;
+  font-weight: bold;
+}
+input {
+  margin-right: 1rem;
+}
 .content {
   min-height: 93vh;
   margin-top: 2rem;

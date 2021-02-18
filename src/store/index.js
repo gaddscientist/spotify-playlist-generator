@@ -9,13 +9,15 @@ function getDuration(milliseconds) {
 export default createStore({
   state() {
     return {
-      tracks: [],
+      // tracks: [],
+      tracks: JSON.parse(sessionStorage.getItem('tracks')) || [],
     };
   },
   mutations: {
     setTracks(state, payload) {
       // state.tracks = payload;
       state.tracks = [...state.tracks, ...payload];
+      sessionStorage.setItem('tracks', JSON.stringify(state.tracks));
     },
   },
   actions: {
