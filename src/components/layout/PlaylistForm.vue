@@ -176,7 +176,10 @@
         </div>
       </div>
       <!-- <p>Please fix the above errors and submit again.</p> -->
-      <base-button mode="flat-green">Create Playlist</base-button>
+      <div v-if="loading">
+        <base-spinner></base-spinner>
+      </div>
+      <base-button v-else mode="flat-green">Create Playlist</base-button>
     </form>
   </base-card>
 </template>
@@ -184,6 +187,7 @@
 <script>
 export default {
   emits: ['submission'],
+  props: ['loading'],
   data() {
     // Consider moving to vuex
     return {

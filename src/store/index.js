@@ -9,15 +9,17 @@ function getDuration(milliseconds) {
 export default createStore({
   state() {
     return {
-      // tracks: [],
       tracks: JSON.parse(sessionStorage.getItem('tracks')) || [],
     };
   },
   mutations: {
     setTracks(state, payload) {
-      // state.tracks = payload;
       state.tracks = [...state.tracks, ...payload];
       sessionStorage.setItem('tracks', JSON.stringify(state.tracks));
+    },
+    clearTracks(state) {
+      state.tracks = [];
+      sessionStorage.clear('tracks');
     },
   },
   actions: {
@@ -67,6 +69,9 @@ export default createStore({
         });
       });
       context.commit('setTracks', processedTracks);
+    },
+    resetTracks(context) {
+      context.commit('clearTracks');
     },
   },
   getters: {

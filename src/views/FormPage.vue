@@ -1,7 +1,7 @@
 <template>
   <div id="showcase">
     <div class="showcase-content">
-      <playlist-form @submission="getSubmissions" />
+      <playlist-form :loading="isLoading" @submission="getSubmissions" />
     </div>
   </div>
 </template>
@@ -19,14 +19,17 @@ export default {
     return {
       results: null,
       redditType: '',
+      isLoading: false,
     };
   },
-  created() {
+  mounted() {
     this.results = null;
+    this.$store.dispatch('resetTracks');
   },
   methods: {
     // Gets reddit submissions based on user specified form input
     async getSubmissions(values) {
+      this.isLoading = true;
       this.redditType = values.redditType;
 
       if (this.redditType === 'multireddit') {
@@ -71,6 +74,7 @@ export default {
           await spotify.getPlaylists(this.results.playlists)
         );
       }
+      this.isLoading = false;
 
       // // Changes view to playlist
       this.$router.push({
