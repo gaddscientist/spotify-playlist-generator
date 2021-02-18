@@ -89,14 +89,8 @@ export default {
         resultsArr = results;
       }
 
-      const urls = resultsArr
-        // Filters out any submissions that may have been repeated
-        .filter(
-          (item, index, self) =>
-            index === self.findIndex(t => t.url === item.url)
-        )
-        // Returns array of urls from each submission
-        .map(item => item.url);
+      // Returns array of urls from each submission
+      const urls = resultsArr.map(item => item.url);
 
       const links = { tracks: [], albums: [], playlists: [] };
 
@@ -114,6 +108,11 @@ export default {
           // Print error
         }
       });
+
+      // Filters out possible duplicates
+      links.tracks = [...new Set(links.tracks)];
+      links.albums = [...new Set(links.albums)];
+      links.playlists = [...new Set(links.playlists)];
 
       return links;
     },
