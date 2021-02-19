@@ -31,6 +31,7 @@ export default {};
   flex-direction: column;
   align-items: center;
   padding-top: 15rem;
+  text-align: center;
 
   /* Overlay */
   z-index: 1;
@@ -42,10 +43,10 @@ export default {};
 .lead {
   font-weight: bold;
   margin-top: 2rem;
-  font-size: 2rem;
+  font-size: 1.7rem;
 }
 #title {
-  font-size: 6rem;
+  font-size: 4.5rem;
 }
 #btn-links {
   margin-top: 2rem;

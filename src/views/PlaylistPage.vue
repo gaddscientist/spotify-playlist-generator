@@ -20,6 +20,8 @@
       </div>
       <div class="playlist">
         <div class="table-header">
+          <!-- Number -->
+          <div class="column-header-item number">No.</div>
           <!-- Title -->
           <div class="column-header-item title">Title</div>
           <!-- Artist -->
@@ -32,6 +34,8 @@
           <div class="column-header-item remove">Remove</div>
         </div>
         <div class="table-row" v-for="(track, index) in tracks" :key="index">
+          <!-- Number -->
+          <div class="column-row-item number">{{ index + 1 }}.</div>
           <!-- Title -->
           <div class="column-row-item title">{{ track.name }}</div>
           <!-- Artist -->
@@ -162,6 +166,9 @@ input {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.number {
+  flex: 0 0 20px;
 }
 .title {
   flex: 0 0 250px;
