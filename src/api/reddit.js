@@ -26,7 +26,13 @@ async function getSubsFromMulti(user, multireddit) {
 }
 
 // Returns array of JSON objects for spotify submissions
-async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
+async function getSpotifySubmissionsFromSub(
+  subreddit,
+  pages,
+  sort,
+  time,
+  upvotes
+) {
   const pageSize = 25;
   const numPages = pages * pageSize;
   let results;
@@ -52,20 +58,23 @@ async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
 
   // Filters out non-spotify submissions
   const filteredResults = results.filter(
-    result => result.domain !== null && result.domain === 'open.spotify.com'
+    result => result.domain === 'open.spotify.com' && result.ups >= upvotes
   );
 
   return processResults(filteredResults);
 }
 
 // Returns array of reddit submissions to a given multireddit
-async function getSpotifySubmissionsFromMulti(user, multi, sort, top) {
+async function getSpotifySubmissionsFromMulti(user, multi, sort, top, upvotes) {
   // List of subreddits in a multireddit
   const subs = await getSubsFromMulti(user, multi);
 
   // Returns an array of submissions for each subreddit when all promises resolve
   const results = await Promise.all(
-    subs.map(async sub => await getSpotifySubmissionsFromSub(sub, 4, sort, top))
+    subs.map(
+      async sub =>
+        await getSpotifySubmissionsFromSub(sub, 4, sort, top, upvotes)
+    )
   );
 
   return processResults(results, 'multireddit');

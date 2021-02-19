@@ -37,7 +37,8 @@ export default {
           values.username,
           values.multireddit,
           values.sort,
-          values.top
+          values.top,
+          values.minUpvotes
         );
 
         this.results = results;
@@ -47,7 +48,8 @@ export default {
           values.subreddit,
           4,
           values.sort,
-          values.top
+          values.top,
+          values.minUpvotes
         );
 
         this.results = results;
