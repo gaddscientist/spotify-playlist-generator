@@ -10,16 +10,22 @@ export default createStore({
   state() {
     return {
       tracks: JSON.parse(sessionStorage.getItem('tracks')) || [],
+      numTracks: null,
     };
   },
   mutations: {
     setTracks(state, payload) {
-      state.tracks = [...state.tracks, ...payload];
-      sessionStorage.setItem('tracks', JSON.stringify(state.tracks));
+      if (state.tracks.length < state.numTracks) {
+        state.tracks = [...state.tracks, ...payload].splice(0, state.numTracks);
+        sessionStorage.setItem('tracks', JSON.stringify(state.tracks));
+      }
     },
     clearTracks(state) {
       state.tracks = [];
       sessionStorage.clear('tracks');
+    },
+    setNumTracks(state, payload) {
+      state.numTracks = payload;
     },
   },
   actions: {
@@ -73,10 +79,16 @@ export default createStore({
     resetTracks(context) {
       context.commit('clearTracks');
     },
+    updateNumTracks(context, payload) {
+      context.commit('setNumTracks', payload);
+    },
   },
   getters: {
     getTracks(state) {
       return state.tracks;
+    },
+    getNumTracks(state) {
+      return state.numTracks;
     },
   },
   modules: {},

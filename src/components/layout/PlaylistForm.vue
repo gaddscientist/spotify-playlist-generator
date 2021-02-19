@@ -49,7 +49,7 @@
       </div>
       <div class="form-row">
         <div class="form-control">
-          <label for="num-songs">Number of songs</label>
+          <label for="num-songs">Max number of songs</label>
           <input
             type="number"
             id="num-songs"
@@ -218,13 +218,15 @@ export default {
         multireddit: this.multireddit,
         subreddit: this.subreddit,
         redditType: this.redditType,
-        numsongs: this.numSongs,
+        numSongs: this.numSongs,
         minUpvotes: this.minUpvotes,
         sort: this.sort,
         top: this.top,
         albums: this.albums,
         playlists: this.playlists,
       };
+
+      this.$store.dispatch('updateNumTracks', this.numSongs);
 
       this.$emit('submission', values);
     },

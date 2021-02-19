@@ -66,7 +66,6 @@ export default {
   },
   data() {
     return {
-      // tracks: this.$store.getters['getTracks'],
       tracks: null,
       access_token: '',
       username: '',
