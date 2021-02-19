@@ -130,6 +130,7 @@ input {
   min-height: 93vh;
   margin-top: 2rem;
   position: relative;
+  margin-bottom: 3rem;
 }
 .container {
   display: flex;

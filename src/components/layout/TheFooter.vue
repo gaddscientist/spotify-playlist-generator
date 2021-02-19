@@ -9,6 +9,7 @@
 <style scoped>
 p {
   height: 2rem;
+  /* margin-top: 2rem; */
   padding-top: 0.5rem;
   background-color: #1ed760;
   text-align: center;

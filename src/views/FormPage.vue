@@ -1,6 +1,6 @@
 <template>
-  <div id="showcase">
-    <div class="showcase-content">
+  <div id="main">
+    <div class="main-content">
       <playlist-form :loading="isLoading" @submission="getSubmissions" />
     </div>
   </div>
@@ -125,12 +125,12 @@ export default {
 </script>
 
 <style scoped>
-#showcase {
+#main {
   color: #fff;
   min-height: 93vh;
 }
 
-#showcase .showcase-content {
+#main .main-content {
   padding-top: 4rem;
   display: flex;
   text-align: center;
