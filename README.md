@@ -16,15 +16,19 @@ A single page web application built with Vue 3(as well as Vuex and Vue Router) t
     -Node.js back-end to support simple API
     -Authentication to allow user to login and save created playlists
     -Other websites to grab songs from besides Reddit
+### Landing Page
+<kbd>
+  <img src="https://github.com/hilldrupbf/spotify-playlist-generator/blob/master/img/landing.png" width="800">
+</kbd>
 
-### *Creation Form*
+### Creation Form
 <kbd>
   <img src="https://github.com/hilldrupbf/spotify-playlist-generator/blob/master/img/form.png" width="800">
 </kbd>
 
-### *Playlist*
+### Playlist
 <kbd>
-  <img src="https://github.com/hilldrupbf/spotify-playlist-generator/blob/master/img/playlist_export.png" width="800">
+  <img src="https://github.com/hilldrupbf/spotify-playlist-generator/blob/master/img/playlist.png" width="800">
 </kbd>
 
 ## Project setup
