@@ -60,8 +60,15 @@ async function getSpotifySubmissionsFromSub(
   const filteredResults = results.filter(
     result => result.domain === 'open.spotify.com' && result.ups >= upvotes
   );
+  // filteredResults.forEach(result => console.log(result.title, result.ups));
 
-  return processResults(filteredResults);
+  // Sorts reddit posts based on upvote count(descending)
+  const sortedResults = filteredResults.sort((a, b) =>
+    a.ups < b.ups ? 1 : -1
+  );
+  sortedResults.forEach(result => console.log(result.title, result.ups));
+
+  return processResults(sortedResults);
 }
 
 // Returns array of reddit submissions to a given multireddit

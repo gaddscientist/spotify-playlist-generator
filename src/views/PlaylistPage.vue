@@ -176,7 +176,7 @@ input {
   text-overflow: ellipsis;
 }
 .number {
-  flex: 0 0 20px;
+  flex: 0 0 30px;
 }
 .title {
   flex: 0 0 250px;
