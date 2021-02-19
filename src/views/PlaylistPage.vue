@@ -37,13 +37,21 @@
           <!-- Number -->
           <div class="column-row-item number">{{ index + 1 }}.</div>
           <!-- Title -->
-          <div class="column-row-item title">{{ track.name }}</div>
+          <div :title="track.name" class="column-row-item title">
+            {{ track.name }}
+          </div>
           <!-- Artist -->
-          <div class="column-row-item">{{ getArtists(track.artists) }}</div>
+          <div :title="getArtists(track.artists)" class="column-row-item">
+            {{ getArtists(track.artists) }}
+          </div>
           <!-- Album -->
-          <div class="column-row-item">{{ track.album }}</div>
+          <div :title="track.album" class="column-row-item">
+            {{ track.album }}
+          </div>
           <!-- Duration -->
-          <div class="column-row-item duration">{{ track.duration }}</div>
+          <div :title="track.duration" class="column-row-item duration">
+            {{ track.duration }}
+          </div>
           <!-- Remove -->
           <button class="column-row-item remove" @click="removeTrack(index)">
             X
