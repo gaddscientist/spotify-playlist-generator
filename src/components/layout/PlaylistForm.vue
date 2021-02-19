@@ -54,7 +54,7 @@
             type="number"
             id="num-songs"
             min="1"
-            max="99"
+            max="300"
             v-model="numSongs"
           />
           <!-- <p>Number of songs must be greater than 0</p> -->

@@ -47,7 +47,6 @@ export default createStore({
       payload.forEach(album => {
         const albumName = album.data.name;
         album.data.tracks.items.forEach(track => {
-          console.log(track);
           processedTracks.push({
             uri: 'spotify:track:' + track.id,
             name: track.name,

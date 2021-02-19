@@ -52,9 +52,7 @@ async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
 
   // Filters out non-spotify submissions
   const filteredResults = results.filter(
-    result =>
-      result.secure_media !== null &&
-      result.secure_media.type === 'open.spotify.com'
+    result => result.domain !== null && result.domain === 'open.spotify.com'
   );
 
   return processResults(filteredResults);
@@ -81,8 +79,8 @@ function processResults(results, redditType = 'subreddit') {
     // Flattens objects from each subreddit into one object
     results.forEach(result => {
       links.tracks = [...links.tracks, ...result.tracks];
-      links.albums = [...links.tracks, ...result.albums];
-      links.playlists = [...links.tracks, ...result.playlists];
+      links.albums = [...links.albums, ...result.albums];
+      links.playlists = [...links.playlists, ...result.playlists];
     });
   } else {
     // Returns array of urls from each submission
