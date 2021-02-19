@@ -1,5 +1,5 @@
 /**
- * Reddit API functionality for back end
+ * Reddit API functionality
  */
 
 'use strict';
@@ -51,11 +51,13 @@ async function getSpotifySubmissionsFromSub(subreddit, pages, sort, time) {
   }
 
   // Filters out non-spotify submissions
-  return results.filter(
+  const filteredResults = results.filter(
     result =>
       result.secure_media !== null &&
       result.secure_media.type === 'open.spotify.com'
   );
+
+  return processResults(filteredResults);
 }
 
 // Returns array of reddit submissions to a given multireddit
@@ -64,23 +66,50 @@ async function getSpotifySubmissionsFromMulti(user, multi, sort, top) {
   const subs = await getSubsFromMulti(user, multi);
 
   // Returns an array of submissions for each subreddit when all promises resolve
-  return Promise.all(
+  const results = await Promise.all(
     subs.map(async sub => await getSpotifySubmissionsFromSub(sub, 4, sort, top))
   );
+
+  return processResults(results, 'multireddit');
 }
 
-// SAME FUNCTION ON FRONT END
-// Merges objects of submissions from each subreddit into one object
-function organizeResults(results) {
-  let organizedResults = {};
-  results.forEach(result => {
-    organizedResults = { ...organizedResults, ...result };
-  });
-  return organizedResults;
+// Organizes reddit submissions into lists for each type(track/album/playlist)
+function processResults(results, redditType = 'subreddit') {
+  const links = { tracks: [], albums: [], playlists: [] };
+
+  if (redditType === 'multireddit') {
+    // Flattens objects from each subreddit into one object
+    results.forEach(result => {
+      links.tracks = [...links.tracks, ...result.tracks];
+      links.albums = [...links.tracks, ...result.albums];
+      links.playlists = [...links.tracks, ...result.playlists];
+    });
+  } else {
+    // Returns array of urls from each submission
+    const urls = results.map(item => item.url);
+
+    // Extracts the ID from each url and stores in corresponding array
+    urls.forEach(url => {
+      const submissionType = url.split('/')[3];
+      const submissionId = url.split('/')[4].split('?')[0];
+      if (submissionType === 'track') {
+        links.tracks.push(submissionId);
+      } else if (submissionType === 'album') {
+        links.albums.push(submissionId);
+      } else if (submissionType === 'playlist') {
+        links.playlists.push(submissionId);
+      } else {
+        // Print error
+      }
+    });
+  }
+
+  // Filters out possible duplicates
+  links.tracks = [...new Set(links.tracks)];
+  links.albums = [...new Set(links.albums)];
+  links.playlists = [...new Set(links.playlists)];
+
+  return links;
 }
 
-export {
-  getSpotifySubmissionsFromSub,
-  getSpotifySubmissionsFromMulti,
-  organizeResults,
-};
+export { getSpotifySubmissionsFromSub, getSpotifySubmissionsFromMulti };

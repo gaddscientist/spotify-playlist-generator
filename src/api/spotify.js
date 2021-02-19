@@ -1,5 +1,5 @@
 /**
- * Spotify API functionality for back end
+ * Spotify API functionality
  */
 
 'use strict';

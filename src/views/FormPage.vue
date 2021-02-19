@@ -40,7 +40,7 @@ export default {
           values.top
         );
 
-        this.results = this.processResults(results);
+        this.results = results;
       } else {
         // Subreddit
         const results = await reddit.getSpotifySubmissionsFromSub(
@@ -50,7 +50,7 @@ export default {
           values.top
         );
 
-        this.results = this.processResults(results);
+        this.results = results;
       }
 
       // Gets spotify single tracks and sends them to Vuex to get processed
@@ -80,45 +80,6 @@ export default {
       this.$router.push({
         name: 'PlaylistPage',
       });
-    },
-    // Organizes reddit submissions into lists for each type(track/album/playlist)
-    processResults(results) {
-      let resultsArr = [];
-      if (this.redditType === 'multireddit') {
-        // Flattens objects from each subreddit into one array
-        results.forEach(result => {
-          resultsArr.push(...result);
-        });
-      } else {
-        resultsArr = results;
-      }
-
-      // Returns array of urls from each submission
-      const urls = resultsArr.map(item => item.url);
-
-      const links = { tracks: [], albums: [], playlists: [] };
-
-      // Extracts the ID from each url and stores in corresponding array
-      urls.forEach(url => {
-        const submissionType = url.split('/')[3];
-        const submissionId = url.split('/')[4].split('?')[0];
-        if (submissionType === 'track') {
-          links.tracks.push(submissionId);
-        } else if (submissionType === 'album') {
-          links.albums.push(submissionId);
-        } else if (submissionType === 'playlist') {
-          links.playlists.push(submissionId);
-        } else {
-          // Print error
-        }
-      });
-
-      // Filters out possible duplicates
-      links.tracks = [...new Set(links.tracks)];
-      links.albums = [...new Set(links.albums)];
-      links.playlists = [...new Set(links.playlists)];
-
-      return links;
     },
   },
 };

@@ -21,7 +21,7 @@
       <div class="playlist">
         <div class="table-header">
           <!-- Number -->
-          <div class="column-header-item number">No.</div>
+          <div class="column-header-item number">#</div>
           <!-- Title -->
           <div class="column-header-item title">Title</div>
           <!-- Artist -->
@@ -96,15 +96,16 @@ export default {
         this.username,
         this.playlistName
       );
-      console.log(playlistResponse);
+
       const uris = this.$store.getters['getTracks'].map(track => track.uri);
-      // await spotify.addTracksToPlaylist(this.$store.getters['getTracks']);
+
       try {
         await spotify.addTracksToPlaylist(
           this.access_token,
           playlistResponse.data.id,
           uris
         );
+        this.$router.push('/form');
       } catch (e) {
         console.log(e);
       }

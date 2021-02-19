@@ -31,31 +31,37 @@
       <div class="form-row" v-if="redditType === 'subreddit'">
         <div class="form-control">
           <label for="subreddit">Subreddit</label>
-          <input type="text" id="subreddit" v-model="subreddit" />
+          <input type="text" id="subreddit" required v-model="subreddit" />
           <!-- <p>Subreddit must not be empty</p> -->
         </div>
       </div>
       <div class="form-row" v-else>
         <div class="form-control">
           <label for="user">Username</label>
-          <input type="text" id="user" v-model="username" />
+          <input type="text" id="user" required v-model="username" />
           <!-- <p>Username must not be empty</p> -->
         </div>
         <div class="form-control">
           <label for="multi">Multireddit</label>
-          <input type="text" id="multi" v-model="multireddit" />
+          <input type="text" id="multi" required v-model="multireddit" />
           <!-- <p>Multireddit must not be empty</p> -->
         </div>
       </div>
       <div class="form-row">
         <div class="form-control">
           <label for="num-songs">Number of songs</label>
-          <input type="number" id="num-songs" v-model="numSongs" />
+          <input
+            type="number"
+            id="num-songs"
+            min="1"
+            max="99"
+            v-model="numSongs"
+          />
           <!-- <p>Number of songs must be greater than 0</p> -->
         </div>
         <div class="form-control">
           <label for="upvotes">Minimum Upvotes</label>
-          <input type="number" id="upvotes" v-model="minUpvotes" />
+          <input type="number" id="upvotes" min="1" v-model="minUpvotes" />
           <!-- <p>Minimum number of upvotes must be greater than 0</p> -->
         </div>
       </div>
@@ -261,6 +267,14 @@ label {
 
 input {
   font: inherit;
+}
+input:focus:required:invalid {
+  box-shadow: 0 0px 1px 1px red;
+}
+input:focus:required:valid,
+input:focus:required:valid,
+input:required:invalid {
+  box-shadow: none;
 }
 
 input[type='radio'] {
