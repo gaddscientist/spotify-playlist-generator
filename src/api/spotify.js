@@ -136,6 +136,19 @@ async function addTracksToPlaylist(accessToken, playlistId, tracks) {
   // .catch(err => console.log(err));
 }
 
+async function getProfileInfo(accessToken) {
+  const url = 'https://api.spotify.com/v1/me';
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + accessToken,
+    },
+  };
+
+  return await axios.get(url, config);
+}
+
 // TESTING
 // const testTracks = ['2G90KzHn8ynh7Ai48hPJoR', '5OkLfBehmMPQXnCK9tNRd8'];
 // getSingleTracks(testTracks).then(results =>
@@ -175,4 +188,5 @@ export {
   authorizeUser,
   createPlaylist,
   addTracksToPlaylist,
+  getProfileInfo,
 };

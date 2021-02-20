@@ -9,8 +9,6 @@
           >Authorize To Export</base-button
         >
         <div v-else>
-          <label for="user">Username: </label>
-          <input type="text" v-model="username" />
           <label for="name">Playlist Name: </label>
           <input type="text" v-model="playlistName" />
           <base-button class="flat-green" @click="exportPlaylist"
@@ -123,6 +121,9 @@ export default {
 
     if (this.$route.hash.includes('access_token')) {
       this.access_token = this.$route.hash.split('&')[0].split('=')[1];
+      spotify.getProfileInfo(this.access_token).then(res => {
+        this.username = res.data.id;
+      });
     } else if (this.$route.hash.includes('access_denied')) {
       this.access_token = 'denied';
     }
@@ -136,7 +137,7 @@ label {
   font-weight: bold;
 }
 input {
-  margin-right: 1rem;
+  margin-right: 2rem;
 }
 .content {
   min-height: 93vh;
