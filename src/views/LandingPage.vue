@@ -6,7 +6,8 @@
         Create playlists based on submissions to subreddits or a multireddit
       </p>
       <span id="btn-links">
-        <base-button link to="/github" class="flat-green"
+        <!-- <base-button link to="/github" class="flat-green" -->
+        <base-button @click="openGithub" class="flat-green"
           >Learn More</base-button
         >
         <base-button link to="/form" class="flat-green"
@@ -18,7 +19,17 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    openGithub() {
+      let win = window.open(
+        'https://github.com/hilldrupbf/spotify-playlist-generator',
+        '_blank'
+      );
+      win.focus();
+    },
+  },
+};
 </script>
 
 <style>
