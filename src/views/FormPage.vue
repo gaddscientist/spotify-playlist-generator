@@ -31,9 +31,10 @@ export default {
     async getSubmissions(values) {
       this.isLoading = true;
       this.redditType = values.redditType;
+      let results;
 
       if (this.redditType === 'multireddit') {
-        const results = await reddit.getSpotifySubmissionsFromMulti(
+        results = await reddit.getSpotifySubmissionsFromMulti(
           values.username,
           values.multireddit,
           values.sort,
@@ -43,14 +44,27 @@ export default {
 
         this.results = results;
       } else {
-        // Subreddit
-        const results = await reddit.getSpotifySubmissionsFromSub(
-          values.subreddit,
-          4,
-          values.sort,
-          values.top,
-          values.minUpvotes
-        );
+        // Subreddit(s)
+        let results;
+
+        // Splits subreddits if multiple are given
+        if (values.subreddit.indexOf(',') > 0) {
+          const subreddits = values.subreddit.split(',').map(sub => sub.trim());
+          results = await reddit.getSpotifySubmissionsFromMultipleSubreddits(
+            subreddits,
+            values.sort,
+            values.top,
+            values.minUpvotes
+          );
+        } else {
+          results = await reddit.getSpotifySubmissionsFromSub(
+            values.subreddit,
+            4,
+            values.sort,
+            values.top,
+            values.minUpvotes
+          );
+        }
 
         this.results = results;
       }

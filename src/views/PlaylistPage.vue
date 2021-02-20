@@ -153,6 +153,7 @@ input {
   flex-direction: column;
   background: #1d1f20;
   color: white;
+  margin-top: 2rem;
 }
 
 .table-header,
@@ -163,6 +164,11 @@ input {
   color: #fff;
   font-size: 15px;
   border-bottom: 1px solid #333;
+}
+.table-header {
+  text-transform: uppercase;
+  color: #959595;
+  font-size: 13px;
 }
 .column-header-item,
 .column-row-item {

@@ -60,15 +60,31 @@ async function getSpotifySubmissionsFromSub(
   const filteredResults = results.filter(
     result => result.domain === 'open.spotify.com' && result.ups >= upvotes
   );
-  // filteredResults.forEach(result => console.log(result.title, result.ups));
 
   // Sorts reddit posts based on upvote count(descending)
   const sortedResults = filteredResults.sort((a, b) =>
     a.ups < b.ups ? 1 : -1
   );
-  sortedResults.forEach(result => console.log(result.title, result.ups));
 
   return processResults(sortedResults);
+}
+
+// Returns array of subreddit submissions to a given set of subreddits
+async function getSpotifySubmissionsFromMultipleSubreddits(
+  subs,
+  sort,
+  top,
+  upvotes
+) {
+  // Returns an array of submissions for each subreddit when all promises resolve
+  const results = await Promise.all(
+    subs.map(
+      async sub =>
+        await getSpotifySubmissionsFromSub(sub, 4, sort, top, upvotes)
+    )
+  );
+
+  return processResults(results, 'multireddit');
 }
 
 // Returns array of reddit submissions to a given multireddit
@@ -126,4 +142,8 @@ function processResults(results, redditType = 'subreddit') {
   return links;
 }
 
-export { getSpotifySubmissionsFromSub, getSpotifySubmissionsFromMulti };
+export {
+  getSpotifySubmissionsFromSub,
+  getSpotifySubmissionsFromMulti,
+  getSpotifySubmissionsFromMultipleSubreddits,
+};
