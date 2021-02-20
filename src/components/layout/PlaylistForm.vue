@@ -28,31 +28,33 @@
           </div>
         </div>
       </div>
-      <div class="form-row" v-if="redditType === 'subreddit'">
-        <div class="form-control">
-          <label for="subreddit">Subreddit(s)</label>
-          <input
-            :title="subredditHelp"
-            type="text"
-            id="subreddit"
-            required
-            v-model="subreddit"
-          />
-          <!-- <p>Subreddit must not be empty</p> -->
+      <transition name="fade" mode="out-in">
+        <div class="form-row" v-if="redditType === 'subreddit'" key="sub">
+          <div class="form-control">
+            <label for="subreddit">Subreddit(s)</label>
+            <input
+              :title="subredditHelp"
+              type="text"
+              id="subreddit"
+              required
+              v-model="subreddit"
+            />
+            <!-- <p>Subreddit must not be empty</p> -->
+          </div>
         </div>
-      </div>
-      <div class="form-row" v-else>
-        <div class="form-control">
-          <label for="user">Username</label>
-          <input type="text" id="user" required v-model="username" />
-          <!-- <p>Username must not be empty</p> -->
+        <div class="form-row" v-else key="multi">
+          <div class="form-control">
+            <label for="user">Username</label>
+            <input type="text" id="user" required v-model="username" />
+            <!-- <p>Username must not be empty</p> -->
+          </div>
+          <div class="form-control">
+            <label for="multi">Multireddit</label>
+            <input type="text" id="multi" required v-model="multireddit" />
+            <!-- <p>Multireddit must not be empty</p> -->
+          </div>
         </div>
-        <div class="form-control">
-          <label for="multi">Multireddit</label>
-          <input type="text" id="multi" required v-model="multireddit" />
-          <!-- <p>Multireddit must not be empty</p> -->
-        </div>
-      </div>
+      </transition>
       <div class="form-row">
         <div class="form-control">
           <label for="num-songs">Max number of songs</label>
@@ -308,5 +310,17 @@ h3 {
 .invalid input,
 .invalid textarea {
   border: 1px solid red;
+}
+
+/* Animation */
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease;
+}
+.fade-enter-from {
+  opacity: 0;
+}
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
