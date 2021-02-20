@@ -3,17 +3,17 @@
     <base-card>
       <div class="container">
         <base-button
-          v-if="access_token === '' || access_token === 'access_deinied'"
+          v-if="access_token === '' || access_token === 'access_denied'"
           class="flat-green"
           @click="authorize"
           >Authorize To Export</base-button
         >
         <div v-else>
-          <label for="name">Playlist Name: </label>
-          <input type="text" v-model="playlistName" />
-          <base-button class="flat-green" @click="exportPlaylist"
-            >Export Playlist</base-button
-          >
+          <form @submit.prevent="exportPlaylist">
+            <label for="name">Playlist Name: </label>
+            <input type="text" required v-model="playlistName" />
+            <base-button class="flat-green">Export Playlist</base-button>
+          </form>
         </div>
       </div>
       <div class="playlist">
@@ -138,6 +138,14 @@ label {
 }
 input {
   margin-right: 2rem;
+}
+input:focus:required:invalid {
+  box-shadow: 0 0px 1px 1px red;
+}
+input:focus:required:valid,
+input:focus:required:valid,
+input:required:invalid {
+  box-shadow: none;
 }
 .content {
   min-height: 93vh;
