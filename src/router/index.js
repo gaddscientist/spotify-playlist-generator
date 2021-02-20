@@ -23,6 +23,13 @@ const routes = [
     path: '/authorized',
     component: PlaylistPage,
   },
+  {
+    path: '/github',
+    beforeEnter: () => {
+      location.href =
+        'https://github.com/hilldrupbf/spotify-playlist-generator';
+    },
+  },
   // {
   //   path: '/about',
   //   name: 'About',

@@ -6,7 +6,9 @@
         Create playlists based on submissions to subreddits or a multireddit
       </p>
       <span id="btn-links">
-        <base-button class="flat-green">Learn More</base-button>
+        <base-button link to="/github" class="flat-green"
+          >Learn More</base-button
+        >
         <base-button link to="/form" class="flat-green"
           >Get Started</base-button
         >

@@ -30,8 +30,14 @@
       </div>
       <div class="form-row" v-if="redditType === 'subreddit'">
         <div class="form-control">
-          <label for="subreddit">Subreddit</label>
-          <input type="text" id="subreddit" required v-model="subreddit" />
+          <label for="subreddit">Subreddit(s)</label>
+          <input
+            :title="subredditHelp"
+            type="text"
+            id="subreddit"
+            required
+            v-model="subreddit"
+          />
           <!-- <p>Subreddit must not be empty</p> -->
         </div>
       </div>
@@ -168,11 +174,11 @@
       </div>
       <div class="form-control">
         <div>
-          <label for="albums">Include Albums?</label>
+          <label for="albums">Include Albums</label>
           <input type="checkbox" name="albums" id="albums" v-model="albums" />
         </div>
         <div>
-          <label for="playlists">Include Playlists?</label>
+          <label for="playlists">Include Playlists</label>
           <input
             type="checkbox"
             name="playlists"
@@ -208,6 +214,7 @@ export default {
       albums: false,
       playlists: false,
       showTop: false,
+      subredditHelp: 'Enter a comma separated list of subreddits',
     };
   },
   methods: {
