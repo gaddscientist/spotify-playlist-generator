@@ -1,5 +1,3 @@
-<!-- @TODO -->
-<!-- FIX DISPLAY ISSUES WITH DEVTOOLS OPEN -->
 <template>
   <base-card>
     <form @submit.prevent="submitForm">
@@ -39,25 +37,22 @@
               required
               v-model="subreddit"
             />
-            <!-- <p>Subreddit must not be empty</p> -->
           </div>
         </div>
         <div class="form-row" v-else key="multi">
           <div class="form-control">
             <label for="user">Username</label>
             <input type="text" id="user" required v-model="username" />
-            <!-- <p>Username must not be empty</p> -->
           </div>
           <div class="form-control">
             <label for="multi">Multireddit</label>
             <input type="text" id="multi" required v-model="multireddit" />
-            <!-- <p>Multireddit must not be empty</p> -->
           </div>
         </div>
       </transition>
       <div class="form-row">
         <div class="form-control">
-          <label for="num-songs">Max number of songs</label>
+          <label for="num-songs">Max # of songs</label>
           <input
             type="number"
             id="num-songs"
@@ -65,12 +60,10 @@
             max="300"
             v-model="numSongs"
           />
-          <!-- <p>Number of songs must be greater than 0</p> -->
         </div>
         <div class="form-control">
           <label for="upvotes">Minimum Upvotes</label>
           <input type="number" id="upvotes" min="1" v-model="minUpvotes" />
-          <!-- <p>Minimum number of upvotes must be greater than 0</p> -->
         </div>
       </div>
       <div class="form-control">
@@ -119,7 +112,6 @@
             v-model="sort"
           />
         </div>
-        <!-- <p>At least one sort method must be selected</p> -->
       </div>
       <div class="form-control" v-if="showTop">
         <h3>Top Posts From...</h3>
@@ -172,9 +164,8 @@
           <label for="all">All</label>
           <input name="time" type="radio" id="all" value="all" v-model="top" />
         </div>
-        <!-- <p>At least one duration must be selected</p> -->
       </div>
-      <div class="form-control">
+      <div class="form-control checkboxes">
         <div>
           <label for="albums">Include Albums</label>
           <input type="checkbox" name="albums" id="albums" v-model="albums" />
@@ -189,7 +180,6 @@
           />
         </div>
       </div>
-      <!-- <p>Please fix the above errors and submit again.</p> -->
       <div v-if="loading">
         <base-spinner></base-spinner>
       </div>
@@ -310,6 +300,13 @@ h3 {
 .invalid input,
 .invalid textarea {
   border: 1px solid red;
+}
+
+.checkboxes {
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #555;
+  margin-bottom: 1rem;
+  width: 100%;
 }
 
 /* Animation */
