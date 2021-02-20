@@ -89,9 +89,8 @@ async function getPlaylists(playlistIds) {
 }
 
 function authorizeUser() {
-  // https://accounts.spotify.com/authorize?client_id=07ec5e39c95442efafe69c61e4466f2f&redirect_uri=http://localhost:8080&scope=playlist-modify-private&response_type=token
   const client_id = credentials.client_id;
-  const redirect_uri = 'http://localhost:8080/authorized';
+  const redirect_uri = 'https://bryanhilldrup.me/authorized';
   const response_type = 'token';
   const scope = 'playlist-modify-private';
 
